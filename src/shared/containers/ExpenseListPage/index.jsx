@@ -18,13 +18,6 @@ import './ExpenseListPage.css'
 moment.locale('ru')
 
 class ExpenseListPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            testProp: 165
-        }
-    }
 
     render() {
 

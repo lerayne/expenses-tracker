@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
     ReactDOM.render(<DevTools store={store}/>, document.getElementById('dev-tools'));
 }
 
-/*ReactDOM.render(
+ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             {routes(store)}
@@ -27,5 +27,5 @@ if (process.env.NODE_ENV !== 'production') {
     </Provider>,
 
     document.getElementById('react-view')
-)*/
+)
 
