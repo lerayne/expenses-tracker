@@ -17,6 +17,7 @@ export default class TransactionInputPanel extends Component {
         this.state = {
             nameInput:'',
             valueInput:'0',
+            income: false,
             categoryInput: props.category || -1,
             subcategoryInput: props.subcategory || -1,
             beneficiarsInput: []
@@ -28,6 +29,7 @@ export default class TransactionInputPanel extends Component {
         const {
             nameInput,
             valueInput,
+            income,
             categoryInput,
             subcategoryInput,
             beneficiarsInput
@@ -81,14 +83,30 @@ export default class TransactionInputPanel extends Component {
                 Добавить
             </Button>
 
-            <FormControl
-                className="value"
-                type="text"
-                placeholder="Сумма"
-                value={valueInput}
-                onChange={e => this.setState({valueInput: e.target.value})}
-                onKeyUp={::this.handleType}
-            />
+            <span className="value">
+                <InputGroup>
+                    <InputGroup.Button>
+                        {!income && <Button
+                            className="expense"
+                            bsStyle="danger"
+                            onClick={() => this.setState({income: true})}
+                        >-</Button>}
+
+                        {!!income && <Button
+                            className="income"
+                            bsStyle="success"
+                            onClick={() => this.setState({income: false})}
+                        >+</Button>}
+                    </InputGroup.Button>
+                    <FormControl
+                        type="text"
+                        placeholder="Сумма"
+                        value={valueInput}
+                        onChange={e => this.setState({valueInput: e.target.value})}
+                        onKeyUp={::this.handleType}
+                    />
+                </InputGroup>
+            </span>
 
         </div>
     }
@@ -120,7 +138,8 @@ export default class TransactionInputPanel extends Component {
 
         this.setState({
             nameInput: '',
-            valueInput: '0'
+            valueInput: '0',
+            income:false
         })
     }
 

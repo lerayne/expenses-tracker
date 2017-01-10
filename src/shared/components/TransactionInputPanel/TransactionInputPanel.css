@@ -19,8 +19,17 @@
 }
 
 .TransactionInputPanel .value {
-    width: 8%;
+    width: 9%;
     float: right;
+    margin-right: 10px;
+}
+
+.TransactionInputPanel .value input {
+    text-align: right;
+}
+
+.TransactionInputPanel .value button {
+    width:42px
 }
 
 .TransactionInputPanel .submit {

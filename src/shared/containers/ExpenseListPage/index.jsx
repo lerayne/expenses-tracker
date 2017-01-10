@@ -39,7 +39,7 @@ class ExpenseListPage extends Component {
                     <th>Подкатегория</th>
                     <th>Бенефициары</th>
                     <th style={{textAlign: 'right'}}>Сумма</th>
-                    <th>Действия</th>
+                    <th style={{textAlign: 'right'}}>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,7 @@ class ExpenseListPage extends Component {
                         <td></td>
                         <td></td>
                         <td style={{textAlign: 'right'}}>{ta.value > 0 && '+'}{ta.value} грн</td>
-                        <td>
+                        <td style={{textAlign: 'right'}}>
                             <ButtonGroup bsSize="xsmall">
                                 <Button>Изменить</Button>
                                 <Button>Удалить</Button>
