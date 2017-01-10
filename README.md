@@ -1,3 +1,3 @@
 # HELLO
 
-The readme is yet to come
+The readme is yet to come done with isomorphic nodejs server and redux

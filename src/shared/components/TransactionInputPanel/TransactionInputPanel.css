@@ -1,0 +1,39 @@
+.TransactionInputPanel {
+    position: fixed;
+    bottom:0;
+    left:0;
+    height: 66px;
+    background-color: #eee;
+    width: 100%;
+    padding: 10px 30px;
+}
+
+.TransactionInputPanel .form-control {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.TransactionInputPanel .name {
+    width: 30%;
+}
+
+.TransactionInputPanel .value {
+    width: 8%;
+    float: right;
+}
+
+.TransactionInputPanel .submit {
+    float:right;
+    padding: 9px 15px;
+}
+
+.TransactionInputPanel .category {
+    width: 15%;
+}
+
+.TransactionInputPanel .beneficiars {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+}
