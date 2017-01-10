@@ -6,12 +6,15 @@ import React from 'react'
 import Table from 'react-bootstrap/lib/Table'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
 import Button from 'react-bootstrap/lib/Button'
+import moment from 'moment'
 
 import RelDate from '../../components/RelDate'
 
 export default function TransactionsList({
     transactions
 }) {
+    const now = moment()
+
     return <div className="TransactionsList">
         <Table responsive condensed striped className="main-table">
             <thead>
@@ -28,7 +31,7 @@ export default function TransactionsList({
             <tbody>
             {transactions.map(ta =>
                 <tr key={ta.id}>
-                    <td><RelDate momentDate={ta.created}/></td>
+                    <td><RelDate momentDate={ta.created} now={now}/></td>
                     <td>{ta.name}</td>
                     <td></td>
                     <td></td>
