@@ -136,6 +136,14 @@ export default class TransactionInputPanel extends Component {
     submit(){
         console.log('submit', {...this.state})
 
+        const {nameInput, valueInput, income} = this.state
+
+        this.props.createTransaction({
+            nameInput,
+            valueInput,
+            income
+        })
+
         this.setState({
             nameInput: '',
             valueInput: '0',

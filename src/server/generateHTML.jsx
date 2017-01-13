@@ -7,11 +7,8 @@ import ReactDom from 'react-dom/server'
 import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
 
-import {query} from './db'
 import routes from '../shared/routes'
 import renderHTML from './renderHTML'
-
-import {incrementCounter} from '../shared/actions/counterActions'
 
 export default async function generateHTML(store, url, res) {
 

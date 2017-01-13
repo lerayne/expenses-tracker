@@ -31,7 +31,7 @@ class App extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav navbar>
-                            {/*<LinkContainer to="/expenses"><NavItem>Траты</NavItem></LinkContainer>*/}
+                            <LinkContainer to="/categories"><NavItem>Категории</NavItem></LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

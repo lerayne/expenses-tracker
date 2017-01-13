@@ -21,6 +21,10 @@ const api = {
         return {
             list: rows
         }
+    },
+
+    async createTransaction(ta){
+
     }
 }
 

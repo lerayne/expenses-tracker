@@ -10,6 +10,12 @@ export function fetchExpenses() {
     }
 }
 
+export function createTransaction(ta){
+    return dispatch => {
+        return api.createTransaction(ta).then(result => dispatch(createTransactionSuccess(result)))
+    }
+}
+
 export function fetchExpensesSuccess(result) {
     return {
         type: 'FETCH_EXPENSES_SUCCESS',
@@ -17,4 +23,8 @@ export function fetchExpensesSuccess(result) {
             ...result
         }
     }
+}
+
+export function createTransactionSuccess(ta){
+    console.log('createTransactionSuccess')
 }
