@@ -5,12 +5,12 @@
 import React from 'react'
 import { IndexRoute, Route }  from 'react-router'
 import App from './containers/App'
-import TransactionsList from './containers/Transactions'
-import CategoriesList from './containers/CategoriesList'
+import TransactionsPage from './containers/TransactionsPage'
+import CategoriesPage from './containers/CategoriesPage'
 
 export default function routes(store) {
     return <Route component={App} path='/'>
-        <IndexRoute component={TransactionsList}/>
-        <Route path="categories" component={CategoriesList} />
+        <IndexRoute component={TransactionsPage}/>
+        <Route path="categories" component={CategoriesPage} />
     </Route>
 }

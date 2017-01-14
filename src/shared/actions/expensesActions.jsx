@@ -16,6 +16,12 @@ export function createTransaction(ta){
     }
 }
 
+export function deleteTransaction(id) {
+    return dispatch => {
+        return api.deleteTransaction(id).then(result => dispatch(deleteTransactionSuccess(result)))
+    }
+}
+
 export function fetchExpensesSuccess(result) {
     return {
         type: 'FETCH_EXPENSES_SUCCESS',
@@ -26,5 +32,15 @@ export function fetchExpensesSuccess(result) {
 }
 
 export function createTransactionSuccess(ta){
-    console.log('createTransactionSuccess')
+    console.log('createTransactionSuccess', ta)
+    return {
+        type: 'CREATE_TRANSACTION_SUCCESS'
+    }
+}
+
+export function deleteTransactionSuccess(result){
+    console.log('deleteTransactionSuccess', result)
+    return {
+        type:'DELETE_TRANSACTION_SUCCESS'
+    }
 }

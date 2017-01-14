@@ -6,14 +6,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {fetchExpenses, createTransaction} from '../actions/expensesActions'
+import {fetchExpenses, createTransaction, deleteTransaction} from '../actions/expensesActions'
 
 import TransactionInputPanel from '../components/TransactionInputPanel'
 import TransactionsList from '../components/TransactionsList'
 
 moment.locale('ru')
 
-class Transactions extends Component {
+class TransactionsPage extends Component {
 
     static initialize(dispatch) {
         return [dispatch(fetchExpenses())]
@@ -29,18 +29,24 @@ class Transactions extends Component {
             return ta
         })
 
-        return <div className="ExpenseListPage">
-            <TransactionsList transactions={transactions} />
+        const transactionsListProps = {
+            transactions,
+            deleteTransaction: id => dispatch(deleteTransaction(id))
+        }
 
-            <TransactionInputPanel
-                createTransaction={ta => dispatch(createTransaction(ta))}
-            />
+        const transactionInputPanelProps = {
+            createTransaction: ta => dispatch(createTransaction(ta))
+        }
+
+        return <div className="ExpenseListPage">
+            <TransactionsList {...transactionsListProps} />
+            <TransactionInputPanel {...transactionInputPanelProps} />
         </div>
     }
 }
 
 //ExpenseListPage.initialActions = [1]
 
-export default Transactions = connect(state => ({
+export default TransactionsPage = connect(state => ({
     transactions: state.expenses.list
-}))(Transactions)
+}))(TransactionsPage)

@@ -11,7 +11,8 @@ import moment from 'moment'
 import RelDate from '../../components/RelDate'
 
 export default function TransactionsList({
-    transactions
+    transactions,
+    deleteTransaction
 }) {
     const now = moment()
 
@@ -32,7 +33,7 @@ export default function TransactionsList({
             {transactions.map(ta =>
                 <tr key={ta.id}>
                     <td><RelDate momentDate={ta.created} now={now}/></td>
-                    <td>{ta.name}</td>
+                    <td>{ta.name} ({ta.id})</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -40,7 +41,7 @@ export default function TransactionsList({
                     <td style={{textAlign: 'right'}}>
                         <ButtonGroup bsSize="xsmall">
                             <Button>Изменить</Button>
-                            <Button>Удалить</Button>
+                            <Button onClick={() => deleteTransaction(ta.id)}>Удалить</Button>
                         </ButtonGroup>
                     </td>
                 </tr>

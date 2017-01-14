@@ -5,10 +5,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-class CategoriesList extends Component {
+class CategoriesPage extends Component {
     render(){
-        return <div>CategoriesList</div>
+        return <div>CategoriesPage</div>
     }
 }
 
-export default CategoriesList
+export default CategoriesPage

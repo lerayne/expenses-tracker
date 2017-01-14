@@ -5,12 +5,18 @@
 const api = {
     createTransaction(ta){
         console.log('api createTransaction', ta)
-        return fetch('http://localhost:3001/api/transaction', {
+        return fetch('/api/transaction', {
             method:'POST',
             headers:{
                 'content-type':'application/json;charset=UTF-8'
             },
             body: JSON.stringify(ta)
+        })
+    },
+
+    deleteTransaction(id){
+        return fetch(`/api/transaction/${id}`, {
+            method:'DELETE'
         })
     }
 }

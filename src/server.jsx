@@ -14,9 +14,8 @@ const app = express()
 // стандартный модуль, для парсинга JSON в запросах
 app.use(bodyParser.json())
 
-// коллбек на запрос к серверу
-// todo - придумать как быть с роутингом
-app.get('/', (req, res) => {
+// коллбек на запрос к серверу (doesn't start width "/api/")
+app.get(/^(?!\/api\/).*$/, (req, res) => {
     if (req.url.indexOf('/api') != 0) {
         // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
         // клиентского состояния, а не состояния всего приложения)
@@ -27,12 +26,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/transaction', (req, res) => {
-    console.log('POST transaction:', req.body)
-    res.send({status: 'OK', ta:req.body})
+    res.json({status: 'OK', ta: req.body})
 })
 
-app.get('/api/transaction', (req, res) => {
-    res.end('get /api/transaction')
+app.delete('/api/transaction/:id', (req, res) => {
+    res.json({status: 'OK', id: req.params.id})
 })
 
 const PORT = process.env.port || 3001
