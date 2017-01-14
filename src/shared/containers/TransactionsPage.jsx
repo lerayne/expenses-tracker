@@ -19,6 +19,12 @@ class TransactionsPage extends Component {
         return [dispatch(fetchExpenses())]
     }
 
+    componentDidMount(){
+        if (!this.props.transactions.length){
+            this.initialize(this.props.dispatch)
+        }
+    }
+
     render() {
 
         let {transactions, dispatch} = this.props

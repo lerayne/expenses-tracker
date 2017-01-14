@@ -139,8 +139,8 @@ export default class TransactionInputPanel extends Component {
         const {nameInput, valueInput, income} = this.state
 
         this.props.createTransaction({
-            nameInput,
-            valueInput,
+            name: nameInput,
+            value: valueInput,
             income
         })
 

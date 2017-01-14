@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 
 import configureStore from './shared/configureStore'
 import generateHTML from './server/generateHTML'
+import api from './server/api'
 
 // создаем центральный апп
 const app = express()
@@ -25,8 +26,11 @@ app.get(/^(?!\/api\/).*$/, (req, res) => {
     }
 })
 
-app.post('/api/transaction', (req, res) => {
-    res.json({status: 'OK', ta: req.body})
+app.post('/api/transaction', async (req, res) => {
+
+    const newTA = await api.createTransaction(req.body)
+
+    res.json({status: 'OK', transaction: newTA})
 })
 
 app.delete('/api/transaction/:id', (req, res) => {

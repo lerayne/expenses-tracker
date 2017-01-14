@@ -6,11 +6,11 @@ import api from '../api'
 
 export function fetchExpenses() {
     return dispatch => {
-        return api.getExpenses().then(result => dispatch(fetchExpensesSuccess(result)))
+        return api.getTransactions().then(result => dispatch(fetchExpensesSuccess(result)))
     }
 }
 
-export function createTransaction(ta){
+export function createTransaction(ta) {
     return dispatch => {
         return api.createTransaction(ta).then(result => dispatch(createTransactionSuccess(result)))
     }
@@ -31,16 +31,19 @@ export function fetchExpensesSuccess(result) {
     }
 }
 
-export function createTransactionSuccess(ta){
-    console.log('createTransactionSuccess', ta)
+export function createTransactionSuccess(result) {
+    console.log('createTransactionSuccess', result)
     return {
-        type: 'CREATE_TRANSACTION_SUCCESS'
+        type: 'CREATE_TRANSACTION_SUCCESS',
+        payload: {
+            ...result.transaction
+        }
     }
 }
 
-export function deleteTransactionSuccess(result){
+export function deleteTransactionSuccess(result) {
     console.log('deleteTransactionSuccess', result)
     return {
-        type:'DELETE_TRANSACTION_SUCCESS'
+        type: 'DELETE_TRANSACTION_SUCCESS'
     }
 }

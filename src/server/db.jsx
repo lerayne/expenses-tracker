@@ -23,11 +23,21 @@ db.connect(err => {
 
 export default db
 
-export function query(query){
+export function query(query, data=false){
     return new Promise((resolve, reject) => {
-        db.query(query, (err, rows) => {
+
+        query = mysql.format(query, data)
+
+        console.log('query', query)
+
+        const params = [query]
+        //if (data) params.push(data)
+
+        params.push((err, rows) => {
             if (err) reject(err)
             if (rows) resolve(rows)
         })
+
+        db.query(...params)
     })
 }

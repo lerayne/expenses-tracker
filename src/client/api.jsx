@@ -11,7 +11,7 @@ const api = {
                 'content-type':'application/json;charset=UTF-8'
             },
             body: JSON.stringify(ta)
-        })
+        }).then(response => response.json())
     },
 
     deleteTransaction(id){

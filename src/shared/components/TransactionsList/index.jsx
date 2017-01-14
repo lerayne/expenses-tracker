@@ -7,8 +7,10 @@ import Table from 'react-bootstrap/lib/Table'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
 import Button from 'react-bootstrap/lib/Button'
 import moment from 'moment'
+import cn from 'classnames'
 
 import RelDate from '../../components/RelDate'
+import './TransactionsList.css'
 
 export default function TransactionsList({
     transactions,
@@ -33,11 +35,18 @@ export default function TransactionsList({
             {transactions.map(ta =>
                 <tr key={ta.id}>
                     <td><RelDate momentDate={ta.created} now={now}/></td>
-                    <td>{ta.name} ({ta.id})</td>
+                    <td>{ta.name}</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td style={{textAlign: 'right'}}>{ta.value > 0 && '+'}{ta.value} грн</td>
+
+                    <td
+                        className={cn('ta-value', {'income': ta.value > 0})}
+                        style={{textAlign: 'right'}}
+                    >
+                        {ta.value > 0 && '+'}{ta.value} грн
+                    </td>
+
                     <td style={{textAlign: 'right'}}>
                         <ButtonGroup bsSize="xsmall">
                             <Button>Изменить</Button>
