@@ -41,7 +41,7 @@ export default function TransactionsList({
                     <td></td>
 
                     <td
-                        className={cn('ta-value', {'income': ta.value > 0})}
+                        className={cn('ta-value', {'text-success': ta.value > 0, 'text-danger': ta.value < 0})}
                         style={{textAlign: 'right'}}
                     >
                         {ta.value > 0 && '+'}{ta.value} грн

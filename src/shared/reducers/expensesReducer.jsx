@@ -3,7 +3,10 @@
  */
 
 const initialState = {
-    list:[]
+    list:[],
+    totalIncome:0,
+    totalExpenses:0,
+    expectedRemains:0
 }
 
 export default function expensesReducer(state=initialState, action){
@@ -21,6 +24,15 @@ export default function expensesReducer(state=initialState, action){
             return {
                 ...state,
                 list: [payload, ...state.list]
+            }
+
+        case 'FETCH_SUMMARY_SUCCESS':
+            const {totalIncome, totalExpenses, expectedRemains} = payload
+            return {
+                ...state,
+                totalIncome,
+                totalExpenses,
+                expectedRemains
             }
 
         default:

@@ -13,6 +13,8 @@ export default async function createTransaction(ta) {
     const newRow = {
         created: now.valueOf(),
         updated: now.valueOf(),
+        user:1,
+        official_date: now.valueOf(),
         name: ta.name,
         value: parseInt((!ta.income ? '-' : '') + ta.value, 10),
         income: ta.income * 1

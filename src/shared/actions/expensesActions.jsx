@@ -22,6 +22,12 @@ export function deleteTransaction(id) {
     }
 }
 
+export function fetchSummary(){
+    return dispatch => {
+        return api.fetchSummary().then(result => dispatch(fetchSummarySuccess(result)))
+    }
+}
+
 export function fetchExpensesSuccess(result) {
     return {
         type: 'FETCH_EXPENSES_SUCCESS',
@@ -45,5 +51,15 @@ export function deleteTransactionSuccess(result) {
     console.log('deleteTransactionSuccess', result)
     return {
         type: 'DELETE_TRANSACTION_SUCCESS'
+    }
+}
+
+export function fetchSummarySuccess(result){
+    console.log('fetchSummarySuccess', result)
+    return {
+        type: 'FETCH_SUMMARY_SUCCESS',
+        payload:{
+            ...result
+        }
     }
 }

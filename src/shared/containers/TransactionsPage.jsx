@@ -6,17 +6,26 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {fetchExpenses, createTransaction, deleteTransaction} from '../actions/expensesActions'
+import {
+    fetchExpenses,
+    createTransaction,
+    deleteTransaction,
+    fetchSummary
+} from '../actions/expensesActions'
 
 import TransactionInputPanel from '../components/TransactionInputPanel'
 import TransactionsList from '../components/TransactionsList'
+import TransactionsSummary from '../components/TransactionsSummary'
 
 moment.locale('ru')
 
 class TransactionsPage extends Component {
 
     static initialize(dispatch) {
-        return [dispatch(fetchExpenses())]
+        return [
+            dispatch(fetchExpenses()),
+            dispatch(fetchSummary())
+        ]
     }
 
     componentDidMount(){
@@ -27,13 +36,26 @@ class TransactionsPage extends Component {
 
     render() {
 
-        let {transactions, dispatch} = this.props
+        let {
+            transactions,
+            totalIncome,
+            totalExpenses,
+            expectedRemains,
+
+            dispatch
+        } = this.props
 
         transactions = transactions.map(ta => {
             ta.created = moment(ta.created)
             ta.updated = moment(ta.updated)
             return ta
         })
+
+        const transactionsSummaryProps = {
+            totalIncome,
+            totalExpenses,
+            expectedRemains,
+        }
 
         const transactionsListProps = {
             transactions,
@@ -45,6 +67,7 @@ class TransactionsPage extends Component {
         }
 
         return <div className="ExpenseListPage">
+            <TransactionsSummary {...transactionsSummaryProps} />
             <TransactionsList {...transactionsListProps} />
             <TransactionInputPanel {...transactionInputPanelProps} />
         </div>
@@ -54,5 +77,8 @@ class TransactionsPage extends Component {
 //ExpenseListPage.initialActions = [1]
 
 export default TransactionsPage = connect(state => ({
-    transactions: state.expenses.list
+    transactions: state.expenses.list,
+    totalIncome: state.expenses.totalIncome,
+    totalExpenses: state.expenses.totalExpenses,
+    expectedRemains: state.expenses.expectedRemains
 }))(TransactionsPage)

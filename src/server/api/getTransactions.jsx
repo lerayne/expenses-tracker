@@ -11,11 +11,16 @@ export default async function getTransactions() {
             id,
             created,
             updated,
+            official_date,
             name,
+            income,
             value
         FROM transactions 
+        WHERE user = ?
         ORDER BY created DESC 
-    `)
+    `, [
+        1 // user
+    ])
 
     return {
         list: rows

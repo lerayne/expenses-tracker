@@ -4,8 +4,10 @@
 
 import createTransaction from './createTransaction'
 import getTransactions from './getTransactions'
+import fetchSummary from './fetchSummary'
 
 export default {
     createTransaction,
-    getTransactions
+    getTransactions,
+    fetchSummary
 }
