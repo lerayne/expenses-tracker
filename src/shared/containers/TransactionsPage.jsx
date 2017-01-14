@@ -28,8 +28,8 @@ class TransactionsPage extends Component {
         ]
     }
 
-    componentDidMount(){
-        if (!this.props.transactions.length){
+    componentDidMount() {
+        if (!this.props.transactions.length) {
             this.initialize(this.props.dispatch)
         }
     }
@@ -45,11 +45,12 @@ class TransactionsPage extends Component {
             dispatch
         } = this.props
 
-        transactions = transactions.map(ta => {
-            ta.created = moment(ta.created)
-            ta.updated = moment(ta.updated)
-            return ta
-        })
+        transactions = transactions.map(ta => ({
+            ...ta,
+            created: moment(ta.created),
+            updated: moment(ta.updated),
+            official_date: moment(ta.official_date)
+        }))
 
         const transactionsSummaryProps = {
             totalIncome,

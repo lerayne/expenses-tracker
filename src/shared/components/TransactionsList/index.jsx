@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/lib/Button'
 import moment from 'moment'
 import cn from 'classnames'
 
-import RelDate from '../../components/RelDate'
+import ShortDate from '../../components/ShortDate'
 import './TransactionsList.css'
 
 export default function TransactionsList({
@@ -34,7 +34,7 @@ export default function TransactionsList({
             <tbody>
             {transactions.map(ta =>
                 <tr key={ta.id}>
-                    <td><RelDate momentDate={ta.created} now={now}/></td>
+                    <td><ShortDate momentDate={ta.official_date}/></td>
                     <td>{ta.name}</td>
                     <td></td>
                     <td></td>

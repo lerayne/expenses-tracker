@@ -17,7 +17,7 @@ export default async function getTransactions() {
             value
         FROM transactions 
         WHERE user = ?
-        ORDER BY created DESC 
+        ORDER BY official_date DESC 
     `, [
         1 // user
     ])

@@ -9,12 +9,13 @@ import {query} from '../db'
 export default async function createTransaction(ta) {
 
     const now = moment()
+    const timestamp = now.valueOf()
 
     const newRow = {
-        created: now.valueOf(),
-        updated: now.valueOf(),
+        created: timestamp,
+        updated: timestamp,
+        official_date: timestamp,
         user:1,
-        official_date: now.valueOf(),
         name: ta.name,
         value: parseInt((!ta.income ? '-' : '') + ta.value, 10),
         income: ta.income * 1
