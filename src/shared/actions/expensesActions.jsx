@@ -10,6 +10,14 @@ export function fetchExpenses() {
     }
 }
 
+export function fetchTransactions(){
+    console.log('fetchTransactions')
+    return {
+        type:'FETCH_TRANSACTIONS',
+        promise: api.getTransactions()
+    }
+}
+
 export function createTransaction(ta) {
     return dispatch => {
         return api.createTransaction(ta).then(result => dispatch(createTransactionSuccess(result)))

@@ -14,7 +14,7 @@ export default function expensesReducer(state=initialState, action){
 
     switch(type){
 
-        case 'FETCH_EXPENSES_SUCCESS':
+        case 'FETCH_TRANSACTIONS_SUCCESS':
             return {
                 ...state,
                 list: payload.list

@@ -10,7 +10,8 @@ import {
     fetchExpenses,
     createTransaction,
     deleteTransaction,
-    fetchSummary
+    fetchSummary,
+    fetchTransactions
 } from '../actions/expensesActions'
 
 import TransactionInputPanel from '../components/TransactionInputPanel'
@@ -23,14 +24,15 @@ class TransactionsPage extends Component {
 
     static initialize(dispatch) {
         return [
-            dispatch(fetchExpenses()),
+            //dispatch(fetchExpenses()),
+            dispatch(fetchTransactions()),
             dispatch(fetchSummary())
         ]
     }
 
     componentDidMount() {
         if (!this.props.transactions.length) {
-            this.initialize(this.props.dispatch)
+            TransactionsPage.initialize(this.props.dispatch)
         }
     }
 
@@ -75,7 +77,11 @@ class TransactionsPage extends Component {
     }
 }
 
-//ExpenseListPage.initialActions = [1]
+/*
+TransactionsPage.initialize = function(){
+
+}
+*/
 
 export default TransactionsPage = connect(state => ({
     transactions: state.expenses.list,
