@@ -11,10 +11,24 @@ export function fetchTransactions(){
     }
 }
 
-export function createTransaction(ta) {
+export function createTransactionOld(ta) {
     return {
         type: 'CREATE_TRANSACTION',
         promise: api.createTransaction(ta)
+    }
+}
+
+export function createTransaction(ta){
+    return dispatch => {
+
+        const createPromise = api.createTransaction(ta)
+
+        createPromise.then(() => dispatch(fetchSummary()))
+
+        dispatch({
+            type: 'CREATE_TRANSACTION',
+            promise: createPromise
+        })
     }
 }
 

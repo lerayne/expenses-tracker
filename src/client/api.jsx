@@ -9,6 +9,7 @@ import {httpDelete, httpGet, httpPost, httpPut} from './fetchHelpers'
  * базе массива определений. Для этого, воможно, придется стандартизировать передаваемые в экшны
  * параметры, но главная проблема в том, что придется вручную парсить URL-плейсхолдеры типа
  * /api/transaction/:id
+ *  Возможно также при помощи этой системы создавать и сами redux-экшны
  */
 
 // массив определений:
@@ -16,7 +17,8 @@ import {httpDelete, httpGet, httpPost, httpPut} from './fetchHelpers'
     {
         method: 'get',
         url: '/transactions',
-        name: 'getTransactions'
+        name: 'getTransactions',
+        action: 'GET_TRANSACTIONS'
     }, {
         method: 'post',
         url: '/transaction',
