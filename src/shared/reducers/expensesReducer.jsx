@@ -26,6 +26,12 @@ export default function expensesReducer(state=initialState, action){
                 list: [payload, ...state.list]
             }
 
+        case 'DELETE_TRANSACTION_SUCCESS':
+            return {
+                ...state,
+                list: state.list.filter(item => item.id != payload.id)
+            }
+
         case 'FETCH_SUMMARY_SUCCESS':
             const {totalIncome, totalExpenses, expectedRemains} = payload
             return {
