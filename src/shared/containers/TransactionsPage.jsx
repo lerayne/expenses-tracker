@@ -24,7 +24,6 @@ class TransactionsPage extends Component {
 
     static initialize(dispatch) {
         return [
-            //dispatch(fetchExpenses()),
             dispatch(fetchTransactions()),
             dispatch(fetchSummary())
         ]
@@ -54,34 +53,25 @@ class TransactionsPage extends Component {
             official_date: moment(ta.official_date)
         }))
 
-        const transactionsSummaryProps = {
-            totalIncome,
-            totalExpenses,
-            expectedRemains,
-        }
-
-        const transactionsListProps = {
-            transactions,
-            deleteTransaction: id => dispatch(deleteTransaction(id))
-        }
-
-        const transactionInputPanelProps = {
-            createTransaction: ta => dispatch(createTransaction(ta))
-        }
-
         return <div className="ExpenseListPage">
-            <TransactionsSummary {...transactionsSummaryProps} />
-            <TransactionsList {...transactionsListProps} />
-            <TransactionInputPanel {...transactionInputPanelProps} />
+
+            <TransactionsSummary {...{
+                totalIncome,
+                totalExpenses,
+                expectedRemains,
+            }} />
+
+            <TransactionsList {...{
+                transactions,
+                deleteTransaction: id => dispatch(deleteTransaction(id))
+            }} />
+
+            <TransactionInputPanel {...{
+                createTransaction: ta => dispatch(createTransaction(ta))
+            }} />
         </div>
     }
 }
-
-/*
-TransactionsPage.initialize = function(){
-
-}
-*/
 
 export default TransactionsPage = connect(state => ({
     transactions: state.expenses.list,
