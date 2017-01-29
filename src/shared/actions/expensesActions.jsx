@@ -4,12 +4,6 @@
 
 import api from '../api'
 
-export function fetchExpenses() {
-    return dispatch => {
-        return api.getTransactions().then(result => dispatch(fetchExpensesSuccess(result)))
-    }
-}
-
 export function fetchTransactions(){
     console.log('fetchTransactions')
     return {
@@ -30,18 +24,10 @@ export function deleteTransaction(id) {
     }
 }
 
-export function fetchSummary(){
-    return dispatch => {
-        return api.fetchSummary().then(result => dispatch(fetchSummarySuccess(result)))
-    }
-}
-
-export function fetchExpensesSuccess(result) {
+export function fetchSummary() {
     return {
-        type: 'FETCH_EXPENSES_SUCCESS',
-        payload: {
-            ...result
-        }
+        type:'FETCH_SUMMARY',
+        promise: api.getSummary()
     }
 }
 
@@ -59,15 +45,5 @@ export function deleteTransactionSuccess(result) {
     console.log('deleteTransactionSuccess', result)
     return {
         type: 'DELETE_TRANSACTION_SUCCESS'
-    }
-}
-
-export function fetchSummarySuccess(result){
-    console.log('fetchSummarySuccess', result)
-    return {
-        type: 'FETCH_SUMMARY_SUCCESS',
-        payload:{
-            ...result
-        }
     }
 }

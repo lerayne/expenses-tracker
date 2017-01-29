@@ -17,24 +17,30 @@ app.use(bodyParser.json())
 
 // коллбек на запрос к серверу (doesn't start width "/api/")
 app.get(/^(?!\/api\/).*$/, (req, res) => {
-    if (req.url.indexOf('/api') != 0) {
-        // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
-        // клиентского состояния, а не состояния всего приложения)
-        const store = configureStore()
+    // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
+    // клиентского состояния, а не состояния всего приложения)
+    const store = configureStore()
 
-        generateHTML(store, req.url, res)
-    }
+    generateHTML(store, req.url, res)
 })
 
-app.post('/api/transaction', async (req, res) => {
+// API HANDLERS
 
-    const newTA = await api.createTransaction(req.body)
-
-    res.json({status: 'OK', transaction: newTA})
+app.get('/api/transactions', async(req, res) => {
+    res.json(await api.getTransactions())
 })
 
-app.delete('/api/transaction/:id', (req, res) => {
-    res.json({status: 'OK', id: req.params.id})
+app.post('/api/transaction', async(req, res) => {
+    res.json(await api.createTransaction(req.body))
+})
+
+app.delete('/api/transaction/:id', async(req, res) => {
+    const result = await api.deleteTransaction(req.params.id)
+    res.json({id: req.params.id})
+})
+
+app.get('/api/summary', async(req, res) => {
+    res.json(await api.getSummary())
 })
 
 const PORT = process.env.port || 3001

@@ -28,10 +28,7 @@ export function query(query, data=false){
 
         query = mysql.format(query, data)
 
-        //console.log('query', query)
-
         const params = [query]
-        //if (data) params.push(data)
 
         params.push((err, rows) => {
             if (err) reject(err)

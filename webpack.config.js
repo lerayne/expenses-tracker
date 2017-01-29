@@ -2,7 +2,7 @@
  * Created by lerayne on 07.01.17.
  */
 
-global.Promise         = require('bluebird');
+global.Promise           = require('bluebird');
 
 const webpack            = require('webpack');
 const path               = require('path');

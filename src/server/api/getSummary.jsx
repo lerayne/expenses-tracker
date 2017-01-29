@@ -4,7 +4,7 @@
 
 import {query} from '../db'
 
-export default async function fetchSummary() {
+export default async function getSummary() {
 
     const promises = [
         query(`

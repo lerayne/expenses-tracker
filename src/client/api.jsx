@@ -2,23 +2,13 @@
  * Created by lerayne on 09.01.17.
  */
 
-const api = {
-    createTransaction(ta){
-        console.log('api createTransaction', ta)
-        return fetch('/api/transaction', {
-            method:'POST',
-            headers:{
-                'content-type':'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(ta)
-        }).then(response => response.json())
-    },
+import {httpDelete, httpGet, httpPost, httpPut} from './fetchHelpers'
 
-    deleteTransaction(id){
-        return fetch(`/api/transaction/${id}`, {
-            method:'DELETE'
-        })
-    }
+const api = {
+    getTransactions: () => httpGet('/api/transactions'),
+    createTransaction: ta => httpPost('/api/transaction', ta),
+    deleteTransaction: id => httpDelete(`/api/transaction/${id}`),
+    getSummary: () => httpGet('/api/summary')
 }
 
 export default api
