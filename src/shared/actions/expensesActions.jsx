@@ -19,16 +19,18 @@ export function createTransactionOld(ta) {
 }
 
 export function createTransaction(ta){
-    return dispatch => {
+    return async dispatch => {
 
         const createPromise = api.createTransaction(ta)
-
-        createPromise.then(() => dispatch(fetchSummary()))
 
         dispatch({
             type: 'CREATE_TRANSACTION',
             promise: createPromise
         })
+
+        await createPromise
+
+        dispatch(fetchSummary())
     }
 }
 

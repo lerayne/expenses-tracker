@@ -8,8 +8,15 @@ import {query} from '../db'
 
 export default async function createTransaction(ta) {
 
-    const now = moment()
-    const timestamp = now.valueOf()
+    const date = ta.date ? moment(ta.date + ' 13:00', 'YYYY.MM.DD HH.mm') : moment()
+
+    if (!date.isValid()) {
+        //todo - think of error handling
+        throw 'date is invalid!'
+        return false
+    }
+
+    const timestamp = date.valueOf()
 
     const newRow = {
         created: timestamp,

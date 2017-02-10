@@ -2,16 +2,22 @@
     position: fixed;
     bottom:0;
     left:0;
-    height: 66px;
+    height: 95px;
     background-color: #eee;
     width: 100%;
     padding: 10px 30px;
 }
 
-.TransactionInputPanel .form-control {
+.TransactionInputPanel .form-control,
+.TransactionInputPanel .checkbox {
     display: inline-block;
     margin-right: 10px;
     vertical-align: middle;
+}
+
+.TransactionInputPanel .form-control.form-control-sm[type="text"] {
+    height: auto;
+    padding: 4px 8px;
 }
 
 .TransactionInputPanel .name {
@@ -24,8 +30,9 @@
     margin-right: 10px;
 }
 
-.TransactionInputPanel .value input {
+.TransactionInputPanel .value .form-control {
     text-align: right;
+    width: 100%;
 }
 
 .TransactionInputPanel .value button {
@@ -45,4 +52,13 @@
     width: 18%;
     display: inline-block;
     vertical-align: middle;
+}
+
+.TransactionInputPanel .beneficiars .form-control {
+    width: 100%;
+}
+
+.TransactionInputPanel .date {
+    width: 110px;
+    text-align: center;
 }
