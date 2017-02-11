@@ -8,20 +8,23 @@ import {query} from '../db'
 
 export default async function createTransaction(ta) {
 
-    const date = ta.date ? moment(ta.date + ' 13:00', 'YYYY.MM.DD HH.mm') : moment()
+    const now = moment()
 
-    if (!date.isValid()) {
+    const officialMoment = ta.date ? moment(ta.date + ' 13:00', 'YYYY.MM.DD HH.mm') : now
+
+    if (!officialMoment.isValid()) {
         //todo - think of error handling
         throw 'date is invalid!'
         return false
     }
 
-    const timestamp = date.valueOf()
+    const officialTS = officialMoment.valueOf()
+    const realTS = now.valueOf()
 
     const newRow = {
-        created: timestamp,
-        updated: timestamp,
-        official_date: timestamp,
+        created: realTS,
+        updated: realTS,
+        official_date: officialTS,
         user:1,
         name: ta.name,
         value: parseInt((!ta.income ? '-' : '') + ta.value, 10),

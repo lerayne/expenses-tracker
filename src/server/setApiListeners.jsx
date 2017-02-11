@@ -7,7 +7,11 @@ import api from './api' // importing SERVER api
 export default function setApiListeners(app) {
 
     app.get('/api/transactions',
-        async(req, res) => res.json(await api.getTransactions())
+        async(req, res) => {
+            const {dateFrom, dateTo} = req.query
+            console.log('query', req.query)
+            res.json(await api.getTransactions(dateFrom, dateTo))
+        }
     )
 
     app.post('/api/transaction',
@@ -19,6 +23,9 @@ export default function setApiListeners(app) {
     )
 
     app.get('/api/summary',
-        async(req, res) => res.json(await api.getSummary())
+        async(req, res) => {
+            const {dateFrom, dateTo} = req.query
+            res.json(await api.getSummary(dateFrom, dateTo))
+        }
     )
 }

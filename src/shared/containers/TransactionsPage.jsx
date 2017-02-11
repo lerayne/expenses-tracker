@@ -7,26 +7,23 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {
-    fetchExpenses,
+    initializeTransactionsPage,
     createTransaction,
     deleteTransaction,
-    fetchSummary,
-    fetchTransactions
+    setDateOffsetsUpdate
 } from '../actions/expensesActions'
 
 import TransactionInputPanel from '../components/TransactionInputPanel'
 import TransactionsList from '../components/TransactionsList'
 import TransactionsSummary from '../components/TransactionsSummary'
+import TransactionsControls from '../components/TransactionsControls'
 
 moment.locale('ru')
 
 class TransactionsPage extends Component {
 
     static initialize(dispatch) {
-        return [
-            dispatch(fetchTransactions()),
-            dispatch(fetchSummary())
-        ]
+        return dispatch(initializeTransactionsPage())
     }
 
     componentDidMount() {
@@ -42,6 +39,8 @@ class TransactionsPage extends Component {
             totalIncome,
             totalExpenses,
             expectedRemains,
+            dateFrom,
+            dateTo,
 
             dispatch
         } = this.props
@@ -54,6 +53,12 @@ class TransactionsPage extends Component {
         }))
 
         return <div className="ExpenseListPage">
+
+            <TransactionsControls {...{
+                dateFrom,
+                dateTo,
+                setDate: (from, to) => dispatch(setDateOffsetsUpdate(from, to))
+            }} />
 
             <TransactionsSummary {...{
                 totalIncome,
@@ -77,5 +82,7 @@ export default TransactionsPage = connect(state => ({
     transactions: state.expenses.list,
     totalIncome: state.expenses.totalIncome,
     totalExpenses: state.expenses.totalExpenses,
-    expectedRemains: state.expenses.expectedRemains
+    expectedRemains: state.expenses.expectedRemains,
+    dateFrom: state.expenses.dateFrom,
+    dateTo: state.expenses.dateTo
 }))(TransactionsPage)

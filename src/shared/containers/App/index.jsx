@@ -8,6 +8,8 @@ import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem  from 'react-bootstrap/lib/NavItem';
 
+import 'material-design-icons-iconfont/dist/fonts/material-icons.css'
+
 import { Link } from 'react-router'
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 

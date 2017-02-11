@@ -4,7 +4,10 @@
 
 import {query} from '../db'
 
-export default async function getTransactions() {
+export default async function getTransactions(dateFrom, dateTo) {
+
+    dateFrom = dateFrom*1
+    dateTo = dateTo*1
 
     const rows = await query(`
         SELECT
@@ -17,9 +20,13 @@ export default async function getTransactions() {
             value
         FROM transactions 
         WHERE user = ?
+            AND official_date > ?
+            AND official_date < ?
         ORDER BY official_date DESC 
     `, [
-        1 // user
+        1, // user
+        dateFrom,
+        dateTo
     ])
 
     return {

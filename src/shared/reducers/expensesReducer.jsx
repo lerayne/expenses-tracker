@@ -3,16 +3,25 @@
  */
 
 const initialState = {
-    list:[],
-    totalIncome:0,
-    totalExpenses:0,
-    expectedRemains:0
+    list: [],
+    totalIncome: 0,
+    totalExpenses: 0,
+    expectedRemains: 0,
+    dateFrom: 0,
+    dateTo: 0
 }
 
-export default function expensesReducer(state=initialState, action){
+export default function expensesReducer(state = initialState, action) {
     const {type, payload} = action
 
-    switch(type){
+    switch (type) {
+
+        case 'SET_DATE_OFFSETS':
+            return {
+                ...state,
+                dateFrom: payload.dateFrom,
+                dateTo: payload.dateTo
+            }
 
         case 'FETCH_TRANSACTIONS_SUCCESS':
             return {

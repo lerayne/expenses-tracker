@@ -10,7 +10,7 @@ import {Provider} from 'react-redux'
 import routes from '../shared/routes'
 import renderHTML from './renderHTML'
 
-export default async function generateHTML(store, url, res) {
+export default function generateHTML(store, url, res) {
 
     // смотрим, соответсвует ли путь запроса одному из путей роутинга
     match({routes: routes(store), location: url}, (error, redirectLocation, renderProps) => {
@@ -34,9 +34,11 @@ export default async function generateHTML(store, url, res) {
         renderProps.routes.forEach(route => {
             //console.log('in URL', renderProps.location.pathname, 'the path is discovered:', route.path)
 
-            if (route.component.WrappedComponent && route.component.WrappedComponent.initialize) {
+            const {WrappedComponent} = route.component
+
+            if (WrappedComponent != undefined && WrappedComponent.initialize) {
                 //console.log('IA for', route.path, ':', route.component.WrappedComponent.initialize)
-                promises = promises.concat(route.component.WrappedComponent.initialize(store.dispatch))
+                promises.push(WrappedComponent.initialize(store.dispatch))
             }
         })
 
@@ -48,7 +50,7 @@ export default async function generateHTML(store, url, res) {
             )
 
             // рендерим html, включая в него текущий state для передачи клиентскому redux
-            return res.end(renderHTML(componentHTML, store.getState()))
+            res.end(renderHTML(componentHTML, store.getState()))
         })
     })
 }

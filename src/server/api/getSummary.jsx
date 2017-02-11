@@ -4,20 +4,27 @@
 
 import {query} from '../db'
 
-export default async function getSummary() {
+export default async function getSummary(dateFrom, dateTo) {
+
+    dateFrom = dateFrom*1
+    dateTo = dateTo*1
 
     const promises = [
         query(`
             SELECT SUM(value) AS value
             FROM transactions
-            WHERE income = 1 
-        `),
+            WHERE income = 1
+                AND official_date > ?
+                AND official_date < ?
+        `, [dateFrom, dateTo]),
 
         query(`
             SELECT SUM(value) AS value
             FROM transactions
-            WHERE income = 0 
-        `)
+            WHERE income = 0
+                AND official_date > ?
+                AND official_date < ?
+        `, [dateFrom, dateTo])
     ]
 
     const summary = await Promise.all(promises)

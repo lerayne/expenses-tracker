@@ -2,7 +2,17 @@
  * Created by lerayne on 29.01.17.
  */
 
-export function httpGet(url){
+import {parse, format} from 'url'
+
+export function httpGet(url, params=false){
+
+    if (params) {
+        url = format({
+            pathname: url,
+            query: params
+        })
+    }
+
     return fetch(url).then(response => response.json())
 }
 

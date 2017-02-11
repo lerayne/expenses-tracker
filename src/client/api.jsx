@@ -4,6 +4,15 @@
 
 import {httpDelete, httpGet, httpPost, httpPut} from './fetchHelpers'
 
+const api = {
+    getTransactions: (dateFrom, dateTo) => httpGet('/api/transactions', {dateFrom, dateTo}),
+    createTransaction: ta => httpPost('/api/transaction', ta),
+    deleteTransaction: id => httpDelete(`/api/transaction/${id}`),
+    getSummary: (dateFrom, dateTo) => httpGet('/api/summary', {dateFrom, dateTo})
+}
+
+export default api
+
 /*
  * Идея - сделать так, чтобы объект API ниже и функция setApiListeners работали автоматически, на
  * базе массива определений. Для этого, воможно, придется стандартизировать передаваемые в экшны
@@ -42,12 +51,3 @@ apiActions.forEach(({name, url, method}) => {
         return http[method](url, body)
     }
 })*/
-
-const api = {
-    getTransactions: () => httpGet('/api/transactions'),
-    createTransaction: ta => httpPost('/api/transaction', ta),
-    deleteTransaction: id => httpDelete(`/api/transaction/${id}`),
-    getSummary: () => httpGet('/api/summary')
-}
-
-export default api

@@ -2,7 +2,7 @@
  * Created by lerayne on 17.01.17.
  */
 
-export default function promiseMiddleware(store) {
+export default function promiseMiddleware({getState, dispatch}) {
     return next => action => {
         if (!action.promise) {
             return next(action)
