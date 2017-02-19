@@ -79,10 +79,10 @@ class TransactionsPage extends Component {
 }
 
 export default TransactionsPage = connect(state => ({
-    transactions: state.expenses.list,
-    totalIncome: state.expenses.totalIncome,
-    totalExpenses: state.expenses.totalExpenses,
-    expectedRemains: state.expenses.expectedRemains,
-    dateFrom: state.expenses.dateFrom,
-    dateTo: state.expenses.dateTo
+    transactions: state.transactions.list,
+    totalIncome: state.transactions.totalIncome,
+    totalExpenses: state.transactions.totalExpenses,
+    expectedRemains: state.transactions.expectedRemains,
+    dateFrom: state.transactions.dateFrom,
+    dateTo: state.transactions.dateTo
 }))(TransactionsPage)

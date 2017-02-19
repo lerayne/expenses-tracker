@@ -3,8 +3,8 @@
  */
 
 import { combineReducers } from 'redux'
-import expenses from './expensesReducer'
+import transactions from './transactionsReducer'
 
 export default combineReducers({
-    expenses
+    transactions
 })

@@ -43,9 +43,9 @@ export default class TransactionsControls extends Component {
         const currentMonth = momentFrom.month()
         const currentYear = momentFrom.year()
 
-        return <Navbar inverse>
+        return <Navbar inverse className="narrow">
             <Nav>
-                <NavItem><i className="material-icons">&#xE314;</i></NavItem>
+                {/*<NavItem><i className="material-icons">&#xE314;</i></NavItem>*/}
 
                 <NavDropdown title={currentYear} id="basic-nav-dropdown">
                     <MenuItem disabled>{currentYear}</MenuItem>
@@ -61,7 +61,7 @@ export default class TransactionsControls extends Component {
                     )}
                 </NavDropdown>
 
-                <NavItem><i className="material-icons">&#xE315;</i></NavItem>
+                {/*<NavItem><i className="material-icons">&#xE315;</i></NavItem>*/}
             </Nav>
         </Navbar>
     }

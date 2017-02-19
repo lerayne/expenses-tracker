@@ -15,7 +15,7 @@ export function initializeTransactionsPage(){
             now.clone().endOf('month').valueOf()
         ))
 
-        const {dateFrom, dateTo} = getState().expenses
+        const {dateFrom, dateTo} = getState().transactions
 
         const promises = [
             dispatch(fetchTransactions(dateFrom, dateTo)),
@@ -41,7 +41,7 @@ export function setDateOffsetsUpdate(from, to){
 
         dispatch(setDateOffsets(from, to))
 
-        const {dateFrom, dateTo} = getState().expenses
+        const {dateFrom, dateTo} = getState().transactions
 
         const promises = [
             dispatch(fetchTransactions(dateFrom, dateTo)),
@@ -70,7 +70,7 @@ export function createTransaction(ta){
             promise: createPromise
         })
 
-        const {dateFrom, dateTo} = getState().expenses
+        const {dateFrom, dateTo} = getState().transactions
 
         createPromise.then(() => dispatch(fetchSummary(dateFrom, dateTo)))
 

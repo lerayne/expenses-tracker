@@ -3,7 +3,6 @@
  */
 
 import React, {Component} from 'react'
-import './TransactionInputPanel.css'
 import moment from 'moment'
 
 import Button from 'react-bootstrap/lib/Button'
@@ -11,10 +10,7 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import InputGroup from 'react-bootstrap/lib/InputGroup'
 import Checkbox from 'react-bootstrap/lib/Checkbox'
 
-if (typeof window != 'undefined'){
-    window.moment = moment
-}
-
+import './TransactionInputPanel.css'
 
 export default class TransactionInputPanel extends Component {
 

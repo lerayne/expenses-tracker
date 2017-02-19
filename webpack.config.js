@@ -55,7 +55,10 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+                loader: ExtractTextPlugin.extract(
+                    'style-loader',
+                    'css-loader?localIdentName=[name]-[local]--[hash:base64:5]'
+                )
             },
             { test: /\.gif$/, loader: 'url-loader?limit=10000&mimetype=image/gif' },
             { test: /\.jpg$/, loader: 'url-loader?limit=10000&mimetype=image/jpg' },
@@ -70,4 +73,4 @@ module.exports = {
     devServer: {
         headers: { 'Access-Control-Allow-Origin': '*' }
     }
-};
+}
