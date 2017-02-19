@@ -42,6 +42,10 @@ export default class TransactionInputPanel extends Component {
             date
         } = this.state
 
+        const {
+            categories
+        } = this.props
+
         return <div className="TransactionInputPanel">
 
             <div>
@@ -60,11 +64,12 @@ export default class TransactionInputPanel extends Component {
                     placeholder="Категория"
                 >
                     <option value={-1}>Категория (нет)</option>
-                    <option>2</option>
-                    <option>3</option>
+                    {categories.map(category =>
+                        <option key={category.id} value={category.id}>{category.name}</option>
+                    )}
                 </FormControl>
 
-                <FormControl
+                {/*<FormControl
                     className="category"
                     componentClass="select"
                     placeholder="Подкатегория"
@@ -72,7 +77,7 @@ export default class TransactionInputPanel extends Component {
                     <option value={-1}>Подкатегория (нет)</option>
                     <option>2</option>
                     <option>3</option>
-                </FormControl>
+                </FormControl>*/}
 
                 <span className="beneficiars">
                     <InputGroup>

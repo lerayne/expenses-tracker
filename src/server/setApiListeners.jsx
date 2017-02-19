@@ -28,4 +28,12 @@ export default function setApiListeners(app) {
             res.json(await api.getSummary(dateFrom, dateTo))
         }
     )
+
+    app.get('/api/categories',
+        async(req, res) => res.json(await api.getCategories())
+    )
+
+    app.post('/api/category',
+        async(req, res) => res.json(await api.createCategory(req.body))
+    )
 }

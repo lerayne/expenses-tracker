@@ -7,11 +7,11 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {
-    initializeTransactionsPage,
+    transactionsPageInit,
     createTransaction,
     deleteTransaction,
     setDateOffsetsUpdate
-} from '../actions/expensesActions'
+} from '../actions/transactionsActions'
 
 import TransactionInputPanel from '../components/TransactionInputPanel'
 import TransactionsList from '../components/TransactionsList'
@@ -23,7 +23,7 @@ moment.locale('ru')
 class TransactionsPage extends Component {
 
     static initialize(dispatch) {
-        return dispatch(initializeTransactionsPage())
+        return dispatch(transactionsPageInit())
     }
 
     componentDidMount() {
@@ -42,6 +42,8 @@ class TransactionsPage extends Component {
             dateFrom,
             dateTo,
 
+            categories,
+
             dispatch
         } = this.props
 
@@ -52,7 +54,7 @@ class TransactionsPage extends Component {
             official_date: moment(ta.official_date)
         }))
 
-        return <div className="ExpenseListPage">
+        return <div id="TransactionsPage">
 
             <TransactionsControls {...{
                 dateFrom,
@@ -68,10 +70,12 @@ class TransactionsPage extends Component {
 
             <TransactionsList {...{
                 transactions,
+                categories,
                 deleteTransaction: id => dispatch(deleteTransaction(id))
             }} />
 
             <TransactionInputPanel {...{
+                categories,
                 createTransaction: ta => dispatch(createTransaction(ta))
             }} />
         </div>
@@ -84,5 +88,7 @@ export default TransactionsPage = connect(state => ({
     totalExpenses: state.transactions.totalExpenses,
     expectedRemains: state.transactions.expectedRemains,
     dateFrom: state.transactions.dateFrom,
-    dateTo: state.transactions.dateTo
+    dateTo: state.transactions.dateTo,
+
+    categories: state.categories.list
 }))(TransactionsPage)

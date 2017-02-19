@@ -4,7 +4,9 @@
 
 import { combineReducers } from 'redux'
 import transactions from './transactionsReducer'
+import categories from './categoriesReducer'
 
 export default combineReducers({
-    transactions
+    transactions,
+    categories
 })

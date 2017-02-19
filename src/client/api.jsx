@@ -8,7 +8,9 @@ const api = {
     getTransactions: (dateFrom, dateTo) => httpGet('/api/transactions', {dateFrom, dateTo}),
     createTransaction: ta => httpPost('/api/transaction', ta),
     deleteTransaction: id => httpDelete(`/api/transaction/${id}`),
-    getSummary: (dateFrom, dateTo) => httpGet('/api/summary', {dateFrom, dateTo})
+    getSummary: (dateFrom, dateTo) => httpGet('/api/summary', {dateFrom, dateTo}),
+    getCategories: () => httpGet('/api/categories'),
+    createCategory: category => httpPost('/api/category', category)
 }
 
 export default api
