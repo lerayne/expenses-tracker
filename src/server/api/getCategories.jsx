@@ -14,7 +14,7 @@ export default async function getCategories() {
         ORDER BY name 
     `)
 
-    console.log('cats', rows)
+    //console.log('cats', rows)
 
     return {
         list: rows
