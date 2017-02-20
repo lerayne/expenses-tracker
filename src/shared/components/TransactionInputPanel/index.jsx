@@ -14,18 +14,37 @@ import './TransactionInputPanel.css'
 
 export default class TransactionInputPanel extends Component {
 
-    constructor(props) {
+    constructor(props){
         super(props)
 
-        this.state = {
+        this.state = this.initialState(props)
+    }
+
+    initialState(props){
+        return {
+            mode:'create',
+            id:-1,
             nameInput: '',
             valueInput: '0',
             income: false,
-            categoryInput: props.category || -1,
-            subcategoryInput: props.subcategory || -1,
+            categoryInput: -1,
+            subcategoryInput: -1,
             beneficiarsInput: [],
             dateIsNow:true,
             date: moment().format('YYYY.MM.DD')
+        }
+    }
+
+    componentWillReceiveProps(newProps){
+        if (newProps.transaction != this.props.transaction){
+
+            if (typeof newProps.transaction == 'object'){
+                this.enterEditMode(newProps.transaction)
+            }
+
+            if (!newProps.transaction){
+                this.setState(this.initialState())
+            }
         }
     }
 
@@ -39,11 +58,13 @@ export default class TransactionInputPanel extends Component {
             subcategoryInput,
             beneficiarsInput,
             dateIsNow,
-            date
+            date,
+            mode
         } = this.state
 
         const {
-            categories
+            categories,
+            cancelEdit
         } = this.props
 
         return <div className="TransactionInputPanel">
@@ -88,13 +109,23 @@ export default class TransactionInputPanel extends Component {
                     </InputGroup>
                 </span>
 
-                <Button
+                {mode == 'create' && <Button
                     className="submit"
+                    bsStyle="primary"
                     onClick={::this.submit}
                     disabled={!this.canSubmit()}
-                >
-                    Добавить
-                </Button>
+                >Добавить</Button>}
+
+                {mode == 'edit' && <Button
+                    className="submit"
+                    bsStyle="primary"
+                    onClick={::this.save}
+                    disabled={!this.canSubmit()}
+                >Сохранить</Button>}
+
+                {mode == 'edit' && <Button className="cancelEdit" onClick={cancelEdit}>
+                    Отмена
+                </Button>}
 
                 <span className="value">
                     <InputGroup>
@@ -126,7 +157,9 @@ export default class TransactionInputPanel extends Component {
                 <Checkbox
                     checked={dateIsNow}
                     onChange={e => this.setState({dateIsNow: e.target.checked})}
-                >Сейчас</Checkbox>
+                >
+                    <span style={{textDecoration: dateIsNow ? 'none' : 'line-through'}}>Сейчас</span>
+                </Checkbox>
 
                 {!dateIsNow && <FormControl
                     type="text"
@@ -194,9 +227,37 @@ export default class TransactionInputPanel extends Component {
         })
     }
 
+    save(){
+        console.log('save', {...this.state})
+
+        //this.props.saveTransaction(transaction)
+    }
+
     handleType(e) {
         if (e.keyCode == 13 && this.canSubmit()) {
             this.submit()
         }
+    }
+
+    enterEditMode(transaction){
+        const {
+            id,
+            name,
+            value,
+            category,
+            income,
+            official_date
+        } = transaction
+
+        this.setState({
+            mode:'edit',
+            id,
+            nameInput: name,
+            valueInput: value,
+            categoryInput: category,
+            income: !!income,
+            dateIsNow: false,
+            date: moment(official_date).format('YYYY.MM.DD HH:mm')
+        })
     }
 }

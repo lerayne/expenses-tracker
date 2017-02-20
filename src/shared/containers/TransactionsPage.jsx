@@ -9,6 +9,7 @@ import moment from 'moment'
 import {
     transactionsPageInit,
     createTransaction,
+    editTransaction,
     deleteTransaction,
     setDateOffsetsUpdate
 } from '../actions/transactionsActions'
@@ -21,6 +22,10 @@ import TransactionsControls from '../components/TransactionsControls'
 moment.locale('ru')
 
 class TransactionsPage extends Component {
+
+    state = {
+        activeTransaction: false
+    }
 
     static initialize(dispatch) {
         return dispatch(transactionsPageInit())
@@ -47,6 +52,8 @@ class TransactionsPage extends Component {
             dispatch
         } = this.props
 
+        const {activeTransaction} = this.state
+
         transactions = transactions.map(ta => ({
             ...ta,
             created: moment(ta.created),
@@ -71,14 +78,32 @@ class TransactionsPage extends Component {
             <TransactionsList {...{
                 transactions,
                 categories,
-                deleteTransaction: id => dispatch(deleteTransaction(id))
+                deleteTransaction: ::this.confirmDeletion,
+                editTransaction: ::this.enterEditMode
             }} />
 
             <TransactionInputPanel {...{
                 categories,
-                createTransaction: ta => dispatch(createTransaction(ta))
+                transaction: activeTransaction,
+                createTransaction: ta => dispatch(createTransaction(ta)),
+                saveTransaction: ta => dispatch(editTransaction(ta)),
+                cancelEdit: () => this.setState({activeTransaction: false})
             }} />
         </div>
+    }
+
+    confirmDeletion(id){
+        const transaction = this.props.transactions.find(ta => ta.id == id)
+        if (confirm(`Удалить транзакцию "${transaction.name}"?`)){
+            this.props.dispatch(deleteTransaction(id))
+        }
+    }
+
+    enterEditMode(id){
+        const activeTransaction = this.props.transactions.find(ta => ta.id == id)
+        this.setState({
+            activeTransaction
+        })
     }
 }
 

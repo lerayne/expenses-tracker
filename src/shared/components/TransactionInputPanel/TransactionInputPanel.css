@@ -25,7 +25,7 @@
 }
 
 .TransactionInputPanel .value {
-    width: 9%;
+    width: 11%;
     float: right;
     margin-right: 10px;
 }
@@ -44,6 +44,12 @@
     padding: 9px 15px;
 }
 
+.TransactionInputPanel .cancelEdit {
+    float: right;
+    margin-right: 10px;
+    padding: 9px 15px;
+}
+
 .TransactionInputPanel .category {
     width: 15%;
 }
@@ -59,6 +65,6 @@
 }
 
 .TransactionInputPanel .date {
-    width: 110px;
+    width: 150px;
     text-align: center;
 }

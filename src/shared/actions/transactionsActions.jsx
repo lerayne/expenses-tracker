@@ -123,6 +123,25 @@ export function createTransaction(ta){
     }
 }
 
+export function editTransaction(ta){
+    return (dispatch, getState) => {
+
+        /*const createPromise = api.createTransaction(ta)
+
+        dispatch({
+            type: 'CREATE_TRANSACTION',
+            promise: createPromise
+        })
+
+        const {dateFrom, dateTo} = getState().transactions
+
+        createPromise.then(() => dispatch(fetchSummary(dateFrom, dateTo)))
+
+        //todo - разобраться с возвратом промиса и очередностью действий
+        return createPromise*/
+    }
+}
+
 /**
  * Requests transaction deletion
  * note: Promise action, "dispatch" returns promise which resolves when the API call is done and

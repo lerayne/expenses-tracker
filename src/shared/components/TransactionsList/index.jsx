@@ -14,7 +14,8 @@ import './TransactionsList.css'
 
 export default function TransactionsList({
     transactions,
-    deleteTransaction
+    deleteTransaction,
+    editTransaction
 }) {
     const now = moment()
 
@@ -49,7 +50,7 @@ export default function TransactionsList({
 
                     <td style={{textAlign: 'right'}}>
                         <ButtonGroup bsSize="xsmall">
-                            <Button>Изменить</Button>
+                            <Button onClick={() => editTransaction(ta.id)}>Изменить</Button>
                             <Button onClick={() => deleteTransaction(ta.id)}>Удалить</Button>
                         </ButtonGroup>
                     </td>
