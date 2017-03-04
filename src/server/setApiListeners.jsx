@@ -18,6 +18,10 @@ export default function setApiListeners(app) {
         async(req, res) => res.json(await api.createTransaction(req.body))
     )
 
+    app.put('/api/transaction/:id',
+        async(req, res) => res.json(await api.editTransaction(req.params.id, req.body))
+    )
+
     app.delete('/api/transaction/:id',
         async(req, res) => res.json(await api.deleteTransaction(req.params.id))
     )

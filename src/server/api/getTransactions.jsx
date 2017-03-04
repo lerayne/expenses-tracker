@@ -15,6 +15,7 @@ export default async function getTransactions(dateFrom, dateTo) {
             created,
             updated,
             official_date,
+            category,
             name,
             income,
             value

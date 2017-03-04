@@ -14,11 +14,10 @@ import './TransactionsList.css'
 
 export default function TransactionsList({
     transactions,
+    categories,
     deleteTransaction,
     editTransaction
 }) {
-    const now = moment()
-
     return <div className="TransactionsList">
         <Table responsive condensed striped className="main-table">
             <thead>
@@ -33,16 +32,22 @@ export default function TransactionsList({
             </tr>
             </thead>
             <tbody>
-            {transactions.map(ta =>
-                <tr key={ta.id}>
+            {transactions.map(ta => {
+                const categoryIndex = categories.findIndex(cat => cat.id == ta.category)
+                const categoryName = categoryIndex > -1 ? categories[categoryIndex].name : ''
+
+                return <tr key={ta.id}>
                     <td><ShortDate momentDate={ta.official_date}/></td>
                     <td>{ta.name}</td>
-                    <td></td>
+                    <td>{categoryName}</td>
                     <td></td>
                     <td></td>
 
                     <td
-                        className={cn('ta-value', {'text-success': ta.value > 0, 'text-danger': ta.value < 0})}
+                        className={cn('ta-value', {
+                            'text-success': ta.value > 0,
+                            'text-danger': ta.value < 0
+                        })}
                         style={{textAlign: 'right'}}
                     >
                         {ta.value > 0 && '+'}{ta.value} грн
@@ -55,7 +60,7 @@ export default function TransactionsList({
                         </ButtonGroup>
                     </td>
                 </tr>
-            )}
+            })}
             </tbody>
         </Table>
     </div>

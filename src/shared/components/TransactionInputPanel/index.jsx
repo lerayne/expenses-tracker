@@ -14,6 +14,8 @@ import DateInput from '../DateInput'
 
 import './TransactionInputPanel.css'
 
+const validDateFormats = ['YYYY-MM-DD', 'YYYY-MM-DD HH:mm']
+
 export default class TransactionInputPanel extends Component {
 
     constructor(props) {
@@ -52,7 +54,7 @@ export default class TransactionInputPanel extends Component {
 
     render() {
 
-        const {
+        let {
             name,
             value,
             income,
@@ -66,6 +68,10 @@ export default class TransactionInputPanel extends Component {
             categories,
             cancelEdit
         } = this.props
+
+        if (category === null){
+            category = -1
+        }
 
         return <div className="TransactionInputPanel">
 
@@ -170,7 +176,7 @@ export default class TransactionInputPanel extends Component {
                 {!dateIsNow && <DateInput
                     value={date}
                     onChange={newDate => this.setState({date: newDate})}
-                    formats={['YYYY-MM-DD', 'YYYY-MM-DD HH:mm']}
+                    formats={validDateFormats}
                     bsSize="small"
                     className="date"
                 />}
@@ -232,7 +238,7 @@ export default class TransactionInputPanel extends Component {
     }
 
     enterEditMode(transaction) {
-        const {
+        let {
             id,
             name,
             value,
@@ -240,6 +246,10 @@ export default class TransactionInputPanel extends Component {
             income,
             official_date
         } = transaction
+
+        if (value < 0) {
+            value *= -1
+        }
 
         this.setState({
             id,
@@ -274,7 +284,7 @@ export default class TransactionInputPanel extends Component {
 
         console.log('save', editedTransaction)
 
-        //this.props.saveTransaction(editedTransaction)
+        this.props.saveTransaction(editedTransaction)
         this.props.cancelEdit()
         this.setState(this.initialState(this.props))
     }
@@ -286,6 +296,6 @@ export default class TransactionInputPanel extends Component {
     }
 
     getMomentFromFormatted(date){
-        return moment(date, ['YYYY-MM-DD', 'YYYY-MM-DD HH:mm'])
+        return moment(date, validDateFormats)
     }
 }

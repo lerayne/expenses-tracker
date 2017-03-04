@@ -7,6 +7,7 @@ import {httpDelete, httpGet, httpPost, httpPut} from './fetchHelpers'
 const api = {
     getTransactions: (dateFrom, dateTo) => httpGet('/api/transactions', {dateFrom, dateTo}),
     createTransaction: ta => httpPost('/api/transaction', ta),
+    editTransaction: (id, ta) => httpPut(`/api/transaction/${id}`, ta),
     deleteTransaction: id => httpDelete(`/api/transaction/${id}`),
     getSummary: (dateFrom, dateTo) => httpGet('/api/summary', {dateFrom, dateTo}),
     getCategories: () => httpGet('/api/categories'),

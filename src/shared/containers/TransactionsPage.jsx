@@ -86,7 +86,7 @@ class TransactionsPage extends Component {
                 categories,
                 transaction: activeTransaction,
                 createTransaction: ta => dispatch(createTransaction(ta)),
-                saveTransaction: ta => dispatch(editTransaction(ta)),
+                saveTransaction: ta => dispatch(editTransaction(ta.id, ta)),
                 cancelEdit: () => this.setState({activeTransaction: false})
             }} />
         </div>

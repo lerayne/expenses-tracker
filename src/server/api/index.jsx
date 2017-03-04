@@ -8,6 +8,7 @@ import deleteTransaction from './deleteTransaction'
 import getSummary from './getSummary'
 import getCategories from './getCategories'
 import createCategory from './createCategory'
+import editTransaction from './editTransaction'
 
 export default {
     getTransactions,
@@ -15,5 +16,6 @@ export default {
     deleteTransaction,
     getSummary,
     getCategories,
-    createCategory
+    createCategory,
+    editTransaction
 }

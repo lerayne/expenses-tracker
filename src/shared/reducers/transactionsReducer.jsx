@@ -2,6 +2,8 @@
  * Created by lerayne on 10.01.17.
  */
 
+import newState from 'immutability-helper'
+
 const initialState = {
     list: [],
     totalIncome: 0,
@@ -49,6 +51,16 @@ export default function expensesReducer(state = initialState, action) {
                 totalExpenses,
                 expectedRemains
             }
+
+        case 'EDIT_TRANSACTION_SUCCESS':
+            const targetTAIndex = state.list.findIndex(ta => ta.id == payload.id)
+
+            console.log('EDIT_TRANSACTION_SUCCESS', payload, targetTAIndex)
+
+            if (targetTAIndex == -1) return state
+
+            return newState(state, {list: {[targetTAIndex]: {$set: payload}}})
+
 
         default:
             return state

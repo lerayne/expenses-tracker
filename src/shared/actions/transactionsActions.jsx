@@ -123,22 +123,22 @@ export function createTransaction(ta){
     }
 }
 
-export function editTransaction(ta){
+export function editTransaction(id, ta){
     return (dispatch, getState) => {
 
-        /*const createPromise = api.createTransaction(ta)
+        const editPromise = api.editTransaction(id, ta)
 
         dispatch({
-            type: 'CREATE_TRANSACTION',
-            promise: createPromise
+            type: 'EDIT_TRANSACTION',
+            promise: editPromise
         })
 
         const {dateFrom, dateTo} = getState().transactions
 
-        createPromise.then(() => dispatch(fetchSummary(dateFrom, dateTo)))
+        editPromise.then(() => dispatch(fetchSummary(dateFrom, dateTo)))
 
         //todo - разобраться с возвратом промиса и очередностью действий
-        return createPromise*/
+        return editPromise
     }
 }
 
@@ -148,12 +148,23 @@ export function editTransaction(ta){
  * state is changed by it's results
  *
  * @param id
- * @returns {{type: string, promise: Promise}}
+ * @returns {function(func, func)}
  */
 export function deleteTransaction(id) {
-    return {
-        type:'DELETE_TRANSACTION',
-        promise: api.deleteTransaction(id)
+    return (dispatch, getState) => {
+
+        const promise = api.deleteTransaction(id)
+
+        dispatch({
+            type:'DELETE_TRANSACTION',
+            promise
+        })
+
+        const {dateFrom, dateTo} = getState().transactions
+
+        promise.then(() => dispatch(fetchSummary(dateFrom, dateTo)))
+
+        return promise
     }
 }
 
