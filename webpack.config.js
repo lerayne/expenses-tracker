@@ -12,8 +12,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const PROD = process.env.NODE_ENV === 'production'
 
 const publicPath         = 'http://localhost:8050/public/assets';
-const cssName            = PROD ? 'styles-[hash].css' : 'styles.css';
-const jsName             = PROD ? 'bundle-[hash].js' : 'bundle.js';
+// const cssName            = PROD ? 'styles-[hash].css' : 'styles.css';
+// const jsName             = PROD ? 'bundle-[hash].js' : 'bundle.js';
+const cssName            = 'styles.css';
+const jsName             = 'bundle.js';
 
 const plugins = [
     new webpack.DefinePlugin({

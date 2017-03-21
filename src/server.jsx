@@ -4,6 +4,7 @@
 
 import express from 'express'
 import bodyParser from 'body-parser'
+import fs from 'fs'
 
 import configureStore from './shared/configureStore'
 import generateHTML from './server/generateHTML'
@@ -15,8 +16,11 @@ const app = express()
 // стандартный модуль, для парсинга JSON в запросах
 app.use(bodyParser.json())
 
+app.use(express.static('public'))
+
 // коллбек на запрос к серверу (doesn't start width "/api/")
 app.get(/^(?!\/api\/).*$/, (req, res) => {
+
     // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
     // клиентского состояния, а не состояния всего приложения)
     generateHTML(configureStore(), req.url, res)
