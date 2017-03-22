@@ -23,12 +23,14 @@ moment.locale('ru')
 
 class TransactionsPage extends Component {
 
-    state = {
-        activeTransaction: false
-    }
-
     static initialize(dispatch) {
         return dispatch(transactionsPageInit())
+    }
+
+    static loginRequired = true
+
+    state = {
+        activeTransaction: false
     }
 
     componentDidMount() {

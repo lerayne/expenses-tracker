@@ -3,6 +3,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux'
 import Grid  from 'react-bootstrap/lib/Grid';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
@@ -34,6 +35,7 @@ class App extends Component {
                     <Navbar.Collapse>
                         <Nav navbar>
                             <LinkContainer to="/categories"><NavItem>Категории</NavItem></LinkContainer>
+                            {this.props.user.id > 0 && <NavItem href="/logout">Log out</NavItem>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -47,4 +49,6 @@ class App extends Component {
 
 App.propTypes = propTypes
 
-export default App;
+export default App = connect(state => ({
+    user: state.user
+}))(App);

@@ -8,13 +8,16 @@ import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
 import {format as urlFormat} from 'url'
 
+import authenticate from './authenticate'
 import RoutesComponent from '../shared/routes'
 import renderHTML from './renderHTML'
 
-export default function generateHTML(store, url, res) {
+export default function generateHTML(store, req, res) {
+
+    const {url} = req
 
     // смотрим, соответсвует ли путь запроса одному из путей роутинга
-    match({routes: RoutesComponent(store), location: url}, (error, redirectLocation, renderProps) => {
+    match({routes: RoutesComponent(store), location: url}, async (error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
             return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
@@ -30,16 +33,26 @@ export default function generateHTML(store, url, res) {
 
         let promises = []
 
+        const currentUser = await authenticate(req)
+
+        if (currentUser) {
+            store.dispatch({
+                type: 'SET_USER',
+                payload: currentUser
+            })
+        }
+
         renderProps.routes.forEach(route => {
             const component = route.component.WrappedComponent || route.component
 
-            //todo login
-            const anonymous = true
-
             //if static "loginRequired" field defined on a component - redirect to /login
             // todo - maybe think of another way to do that
-            if (component.loginRequired && anonymous) {
+            if (component.loginRequired && !currentUser) {
                 return res.redirect(302, urlFormat({pathname: '/login', query:{next: url}}))
+            }
+
+            if (component.anonymousRequired && currentUser){
+                return res.redirect(302, urlFormat({pathname: '/'}))
             }
 
             if (component.initialize) {

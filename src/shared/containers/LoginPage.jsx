@@ -12,6 +12,9 @@ import Alert from 'react-bootstrap/lib/Alert'
 import url from 'url'
 
 class LoginPage extends Component {
+
+    static anonymousRequired = true
+
     render(){
         const mainStyle = {}
         const formStyle = {
