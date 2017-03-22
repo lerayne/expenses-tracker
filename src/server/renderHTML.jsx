@@ -2,10 +2,10 @@
  * Created by lerayne on 08.01.17.
  */
 
-const assetUrl = process.env.NODE_ENV !== 'production' ? '' : 'public/'
+const assetUrl = process.env.NODE_ENV == 'production' ? '' : 'http://localhost:8050/public/'
 
 export default function renderHTML(componentHTML, initialState) {
-    return `
+    const html = `
     <!DOCTYPE html>
       <html>
       <head>
@@ -24,4 +24,5 @@ export default function renderHTML(componentHTML, initialState) {
       </body>
     </html>
   `
+    return html
 }

@@ -6,4 +6,4 @@ require('babel-register')
 const notJS = ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2']
 notJS.forEach(ext => require.extensions[ext] = () => {})
 require('babel-polyfill')
-require('server.jsx')
+require('./src/server.jsx')

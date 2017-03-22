@@ -7,13 +7,13 @@ import ReactDom from 'react-dom/server'
 import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
 
-import routes from '../shared/routes'
+import RoutesComponent from '../shared/routes'
 import renderHTML from './renderHTML'
 
 export default function generateHTML(store, url, res) {
 
     // смотрим, соответсвует ли путь запроса одному из путей роутинга
-    match({routes: routes(store), location: url}, (error, redirectLocation, renderProps) => {
+    match({routes: RoutesComponent(store), location: url}, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
             return res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -43,6 +43,7 @@ export default function generateHTML(store, url, res) {
         })
 
         Promise.all(promises).then(() => {
+
             const componentHTML = ReactDom.renderToString(
                 <Provider store={store}>
                     <RouterContext {...renderProps} />
