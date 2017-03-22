@@ -6,6 +6,7 @@ import React from 'react'
 import ReactDom from 'react-dom/server'
 import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
+import {format as urlFormat} from 'url'
 
 import RoutesComponent from '../shared/routes'
 import renderHTML from './renderHTML'
@@ -16,7 +17,7 @@ export default function generateHTML(store, url, res) {
     match({routes: RoutesComponent(store), location: url}, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
-            return res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+            return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
         }
 
         if (error) { // Произошла ошибка любого рода
@@ -27,18 +28,22 @@ export default function generateHTML(store, url, res) {
             return res.status(404).send('Not found')
         }
 
-        //console.log('renderProps', renderProps.routes)
-
         let promises = []
 
         renderProps.routes.forEach(route => {
-            //console.log('in URL', renderProps.location.pathname, 'the path is discovered:', route.path)
+            const component = route.component.WrappedComponent || route.component
 
-            const {WrappedComponent} = route.component
+            //todo login
+            const anonymous = true
 
-            if (WrappedComponent != undefined && WrappedComponent.initialize) {
-                //console.log('IA for', route.path, ':', route.component.WrappedComponent.initialize)
-                promises.push(WrappedComponent.initialize(store.dispatch))
+            //if static "loginRequired" field defined on a component - redirect to /login
+            // todo - maybe think of another way to do that
+            if (component.loginRequired && anonymous) {
+                return res.redirect(302, urlFormat({pathname: '/login', query:{next: url}}))
+            }
+
+            if (component.initialize) {
+                promises.push(component.initialize(store.dispatch))
             }
         })
 

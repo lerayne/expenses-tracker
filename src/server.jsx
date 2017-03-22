@@ -4,7 +4,9 @@
 
 import express from 'express'
 import bodyParser from 'body-parser'
-import fs from 'fs'
+import bcrypt from 'bcryptjs'
+import {query} from './server/db'
+import url from 'url'
 
 import configureStore from './shared/configureStore'
 import generateHTML from './server/generateHTML'
@@ -15,8 +17,36 @@ const app = express()
 
 // стандартный модуль, для парсинга JSON в запросах
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
 
 app.use(express.static('public'))
+
+app.post('/login', async (req, res) => {
+    function redirectToFailure(){
+        res.redirect(302, url.format({pathname:'/login', query:{
+            next: req.body.nextUrl,
+            error: 1
+        }}))
+    }
+
+    const dbResp = await query(`
+        SELECT password_hash FROM users WHERE email = ?
+    `, [req.body.email])
+
+    if (!dbResp.length) {
+        redirectToFailure()
+    } else {
+        const passwordCorrect = await bcrypt.compare(req.body.password, dbResp[0].password_hash)
+
+        if (passwordCorrect) {
+            // todo - set JWT auth!
+            res.redirect(302, req.body.nextUrl || '/')
+        } else {
+            redirectToFailure()
+        }
+    }
+    console.log(resp)
+})
 
 // коллбек на запрос к серверу (doesn't start width "/api/")
 app.get(/^(?!\/api\/).*$/, (req, res) => {

@@ -20,8 +20,18 @@ class CategoriesPage extends Component {
         return dispatch(categoriesPageInit())
     }
 
+    static loginRequired = true
+
     state = {
         modalOpen: false
+    }
+
+    constructor(){
+        super()
+    }
+
+    componentWillMount(){
+        //SSR!
     }
 
     render() {
