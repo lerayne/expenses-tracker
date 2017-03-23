@@ -8,11 +8,13 @@ import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
 import {format as urlFormat} from 'url'
 
-import authenticate from './security/authenticate'
+import checkUserAuth from './security/checkUserAuth'
+import grantAccess from './security/grantAccess'
 import RoutesComponent from '../shared/routes'
-import renderHTML from './renderHTML'
+import getHTML from './getHTML'
+import createToken from './security/createToken'
 
-export default function generateHTML(store, req, res) {
+export default function createStaticPage(store, req, res) {
 
     const {url} = req
 
@@ -31,16 +33,22 @@ export default function generateHTML(store, req, res) {
             return res.status(404).send('Not found')
         }
 
-        let promises = []
-
-        const currentUser = await authenticate(req)
+        const {payload: currentUser} = await checkUserAuth(req)
 
         if (currentUser) {
             store.dispatch({
                 type: 'SET_USER',
                 payload: currentUser
             })
+
+            // todo - only reauthorize near expiration (performance)
+            // todo - check ip
+
+            // sliding - now only on static page render
+            await grantAccess(req, res, currentUser)
         }
+
+        const promises = []
 
         renderProps.routes.forEach(route => {
             const component = route.component.WrappedComponent || route.component
@@ -69,7 +77,7 @@ export default function generateHTML(store, req, res) {
             )
 
             // рендерим html, включая в него текущий state для передачи клиентскому redux
-            res.end(renderHTML(componentHTML, store.getState()))
+            res.end(getHTML(componentHTML, store.getState()))
         })
     })
 }

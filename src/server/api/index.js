@@ -9,6 +9,7 @@ import getSummary from './getSummary'
 import getCategories from './getCategories'
 import createCategory from './createCategory'
 import editTransaction from './editTransaction'
+import getUserAuth from './getUserAuth'
 
 export default {
     getTransactions,
@@ -17,5 +18,6 @@ export default {
     getSummary,
     getCategories,
     createCategory,
-    editTransaction
+    editTransaction,
+    getUserAuth
 }

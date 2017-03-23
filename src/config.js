@@ -2,8 +2,5 @@
  * Created by lerayne on 22.03.17.
  */
 
-const secretKey = 'mYuBeRsEcReTkEy192837465'
-
-export {
-    secretKey
-}
+export const secretKey = 'mYuBeRsEcReTkEy192837465'
+export const keyExpiresIn = '7 days'

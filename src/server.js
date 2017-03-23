@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import configureStore from './shared/configureStore'
-import generateHTML from './server/generateHTML'
+import createStaticPage from './server/createStaticPage'
 import setApiListeners from './server/setApiListeners'
 import login from './server/security/login'
 
@@ -33,7 +33,7 @@ app.get(/^(?!\/api\/).*$/, (req, res) => {
 
     // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
     // клиентского состояния, а не состояния всего приложения)
-    generateHTML(configureStore(), req, res)
+    createStaticPage(configureStore(), req, res)
 })
 
 // API HANDLERS

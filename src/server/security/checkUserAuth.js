@@ -5,7 +5,7 @@
 import jwt from 'jsonwebtoken'
 import {secretKey} from '../../config'
 
-export default function authenticate(req){
+export default function checkUserAuth(req){
     return new Promise((resolve, reject) => {
 
         if (!req.cookies.access_token) {

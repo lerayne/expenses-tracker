@@ -4,12 +4,10 @@
 
 import bcrypt from 'bcryptjs'
 import url from 'url'
-import jwt from 'jsonwebtoken'
-import ms from 'ms'
 
-import {query} from '../db'
-import {secretKey} from '../../config'
-import authenticate from './authenticate'
+import checkUserAuth from './checkUserAuth'
+import grantAccess from './grantAccess'
+import getUserAuth from '../api/getUserAuth'
 
 function redirectToFailure(req, res) {
     res.redirect(302, url.format({
@@ -20,57 +18,20 @@ function redirectToFailure(req, res) {
     }))
 }
 
-function grantAccess(req, res, user) {
 
-    delete user.password_hash
-
-    user = {
-        ...user,
-        ip: '0.0.0.0' // todo - IP filtering
-    }
-
-    const jwtOptions = {
-        expiresIn: '7 days'
-    }
-
-    jwt.sign(user, secretKey, jwtOptions, function (err, token) {
-        if (!err) {
-
-            const host = req.get('host')
-            const hostname = host.split(':')[0]
-
-            res.cookie('access_token', token, {
-                path: '/',
-                domain: hostname,
-                maxAge: ms('7 days')
-            })
-
-            res.redirect(302, req.body.nextUrl || '/')
-        }
-    })
-}
 
 export default async function login(req, res) {
 
-    const currentUser = await authenticate(req)
+    const {payload: currentUser} = await checkUserAuth(req)
 
     if (currentUser) {
         // Already logged in: redirect back
-        req.redirect(302, req.body.nextUrl || '/')
+        res.redirect(302, req.body.nextUrl || '/')
     } else {
 
-        const userRequestQuery = `
-        SELECT 
-            id, 
-            email, 
-            password_hash 
-        FROM users 
-        WHERE email = ?
-    `
-        const dbResp = await query(userRequestQuery, [req.body.email])
-        const user = dbResp[0]
+        const user = await getUserAuth(req.body.email)
 
-        if (user == undefined) {
+        if (!user) {
             // No such user
             redirectToFailure(req, res)
         } else {
@@ -82,6 +43,7 @@ export default async function login(req, res) {
             } else {
                 // User is successfully authed!
                 grantAccess(req, res, user)
+                res.redirect(302, req.body.nextUrl || '/')
             }
         }
     }
