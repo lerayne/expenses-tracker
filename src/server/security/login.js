@@ -7,8 +7,8 @@ import url from 'url'
 import jwt from 'jsonwebtoken'
 import ms from 'ms'
 
-import {query} from './db'
-import {secretKey} from '../config'
+import {query} from '../db'
+import {secretKey} from '../../config'
 import authenticate from './authenticate'
 
 function redirectToFailure(req, res) {

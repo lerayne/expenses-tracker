@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser'
 import configureStore from './shared/configureStore'
 import generateHTML from './server/generateHTML'
 import setApiListeners from './server/setApiListeners'
-import login from './server/login'
+import login from './server/security/login'
 
 // создаем центральный апп
 const app = express()

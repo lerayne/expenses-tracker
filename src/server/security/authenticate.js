@@ -3,7 +3,7 @@
  */
 
 import jwt from 'jsonwebtoken'
-import {secretKey} from '../config'
+import {secretKey} from '../../config'
 
 export default function authenticate(req){
     return new Promise((resolve, reject) => {

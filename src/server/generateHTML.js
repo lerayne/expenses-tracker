@@ -8,7 +8,7 @@ import {match, RouterContext} from 'react-router'
 import {Provider} from 'react-redux'
 import {format as urlFormat} from 'url'
 
-import authenticate from './authenticate'
+import authenticate from './security/authenticate'
 import RoutesComponent from '../shared/routes'
 import renderHTML from './renderHTML'
 
