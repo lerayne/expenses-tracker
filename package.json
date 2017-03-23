@@ -1,21 +1,25 @@
 {
   "name": "expenses",
   "version": "1.0.0",
-  "description": "",
+  "description": "expenses tracker by Lerayne",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production pm2 start expenses.js",
+    "stop": "pm2 stop expenses.js",
+    "restart": "pm2 restart expenses.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack -p --progress",
-    "server": "NODE_ENV=development nodemon server.js",
-    "dev": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0"
+    "prod-client": "NODE_ENV=production webpack -p --progress",
+    "dev-server": "NODE_ENV=development nodemon server.js",
+    "dev-client": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Michael Yegorov a.k.a Lerayne",
+  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.21.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-env": "^1.2.2",
     "babel-register": "^6.24.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.4.7",
@@ -42,7 +46,6 @@
   },
   "devDependencies": {
     "babel-loader": "^6.2.10",
-    "babel-preset-env": "^1.2.2",
     "babel-preset-react-optimize": "^1.0.1",
     "clean-webpack-plugin": "^0.1.15",
     "css-loader": "^0.26.1",
@@ -61,5 +64,12 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lerayne/expenses-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lerayne/expenses-tracker/issues"
   }
 }

@@ -3,7 +3,7 @@
  */
 
 import jwt from 'jsonwebtoken'
-import {secretKey, keyExpiresIn} from '../../config'
+import {secretKey, keyExpiresIn} from '../../../config'
 
 export default function createToken(payload, optionsOverride = {}){
     const options = {

@@ -20,7 +20,7 @@ export default function renderHTML(componentHTML, initialState) {
       <body>
         <div id="react-view">${componentHTML}</div>
         <div id="dev-tools"></div>
-        <!--<script type="application/javascript" src="${assetUrl}assets/bundle.js"></script>-->
+        <script type="application/javascript" src="${assetUrl}assets/bundle.js"></script>
       </body>
     </html>
   `

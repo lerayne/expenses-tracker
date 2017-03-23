@@ -14,7 +14,7 @@ const initialState = window.REDUX_INITIAL_STATE || {}
 
 const store = configureStore(initialState)
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
     const DevTools = require('./client/components/DevTools').default
     ReactDOM.render(<DevTools store={store}/>, document.getElementById('dev-tools'));
 }

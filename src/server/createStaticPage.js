@@ -12,10 +12,13 @@ import checkUserAuth from './security/checkUserAuth'
 import grantAccess from './security/grantAccess'
 import RoutesComponent from '../shared/routes'
 import getHTML from './getHTML'
-import createToken from './security/createToken'
+import configureStore from '../shared/configureStore'
 
-export default function createStaticPage(store, req, res) {
+export default function createStaticPage(req, res) {
 
+    // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
+    // клиентского состояния, а не состояния всего приложения)
+    const store = configureStore()
     const {url} = req
 
     // смотрим, соответсвует ли путь запроса одному из путей роутинга

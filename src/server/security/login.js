@@ -18,8 +18,6 @@ function redirectToFailure(req, res) {
     }))
 }
 
-
-
 export default async function login(req, res) {
 
     const {payload: currentUser} = await checkUserAuth(req)
@@ -42,7 +40,7 @@ export default async function login(req, res) {
                 redirectToFailure(req, res)
             } else {
                 // User is successfully authed!
-                grantAccess(req, res, user)
+                await grantAccess(req, res, user)
                 res.redirect(302, req.body.nextUrl || '/')
             }
         }

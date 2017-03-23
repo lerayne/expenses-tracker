@@ -12,9 +12,7 @@ export default function configureStore(initialState = {}) {
     let enhancer
     const middlewares = applyMiddleware(thunk, promiseMiddleware)
 
-    if (process.env.NODE_ENV === 'production'){
-        enhancer = middlewares
-    } else {
+    if (process.env.NODE_ENV === 'development'){
 
         const DevTools = require('../client/components/DevTools/index').default
 
@@ -22,6 +20,8 @@ export default function configureStore(initialState = {}) {
             middlewares,
             DevTools.instrument()
         )
+    } else {
+        enhancer = middlewares
     }
 
     const store = createStore(rootReducer, initialState, enhancer);
