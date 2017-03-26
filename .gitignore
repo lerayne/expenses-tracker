@@ -2,5 +2,6 @@
 /public
 /.idea
 /expenses_*.sql
+/expenses.js
 
 /*.log
