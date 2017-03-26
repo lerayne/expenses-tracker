@@ -16,53 +16,54 @@ const initialState = {
 export default function expensesReducer(state = initialState, action) {
     const {type, payload} = action
 
-    switch (type) {
+    if (payload != undefined && !payload.error) {
 
-        case 'SET_DATE_OFFSETS':
-            return {
-                ...state,
-                dateFrom: payload.dateFrom,
-                dateTo: payload.dateTo
-            }
+        switch (type) {
 
-        case 'FETCH_TRANSACTIONS_SUCCESS':
-            return {
-                ...state,
-                list: payload.list
-            }
+            case 'SET_DATE_OFFSETS':
+                return {
+                    ...state,
+                    dateFrom: payload.dateFrom,
+                    dateTo: payload.dateTo
+                }
 
-        case 'CREATE_TRANSACTION_SUCCESS':
-            return {
-                ...state,
-                list: [payload, ...state.list]
-            }
+            case 'FETCH_TRANSACTIONS_SUCCESS':
+                return {
+                    ...state,
+                    list: payload.list
+                }
 
-        case 'DELETE_TRANSACTION_SUCCESS':
-            return {
-                ...state,
-                list: state.list.filter(item => item.id != payload.id)
-            }
+            case 'CREATE_TRANSACTION_SUCCESS':
+                return {
+                    ...state,
+                    list: [payload, ...state.list]
+                }
 
-        case 'FETCH_SUMMARY_SUCCESS':
-            const {totalIncome, totalExpenses, expectedRemains} = payload
-            return {
-                ...state,
-                totalIncome,
-                totalExpenses,
-                expectedRemains
-            }
+            case 'DELETE_TRANSACTION_SUCCESS':
+                return {
+                    ...state,
+                    list: state.list.filter(item => item.id != payload.id)
+                }
 
-        case 'EDIT_TRANSACTION_SUCCESS':
-            const targetTAIndex = state.list.findIndex(ta => ta.id == payload.id)
+            case 'FETCH_SUMMARY_SUCCESS':
+                const {totalIncome, totalExpenses, expectedRemains} = payload
+                return {
+                    ...state,
+                    totalIncome,
+                    totalExpenses,
+                    expectedRemains
+                }
 
-            console.log('EDIT_TRANSACTION_SUCCESS', payload, targetTAIndex)
+            case 'EDIT_TRANSACTION_SUCCESS':
+                const targetTAIndex = state.list.findIndex(ta => ta.id == payload.id)
 
-            if (targetTAIndex == -1) return state
+                console.log('EDIT_TRANSACTION_SUCCESS', payload, targetTAIndex)
 
-            return newState(state, {list: {[targetTAIndex]: {$set: payload}}})
+                if (targetTAIndex == -1) return state
 
-
-        default:
-            return state
+                return newState(state, {list: {[targetTAIndex]: {$set: payload}}})
+        }
     }
+
+    return state
 }

@@ -15,7 +15,9 @@ export function httpGet(url, params=false){
 
     return fetch(url, {
         credentials: "include"
-    }).then(response => response.json())
+    }).then(response => {
+        return response.json()
+    })
 }
 
 export function httpPost(url, requestObj){

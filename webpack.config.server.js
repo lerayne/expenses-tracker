@@ -48,9 +48,12 @@ module.exports = function (env) {
     return {
         target: 'node',
 
-        entry: {
-            main: path.join(__dirname, 'src', 'server.js'),
+        node: {
+            __dirname: false,
+            __filename: false,
         },
+
+        entry: path.join(__dirname, 'src', 'server.js'),
 
         output: {
             path: path.join(__dirname),
@@ -90,15 +93,10 @@ module.exports = function (env) {
             },
             getExternals({
                 whitelist: [
-                    /\.css$/i
+                    /\.css$/i //CSS files whitelisted so we can omit them by loader
                 ]
             })
         ],
-
-        node: {
-            __dirname: false,
-            __filename: false,
-        },
 
         plugins,
 

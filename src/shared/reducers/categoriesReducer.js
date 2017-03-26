@@ -9,20 +9,22 @@ const initialState = {
 export default function (state = initialState, action) {
     const {type, payload} = action
 
-    switch (type) {
-        case 'FETCH_CATEGORIES_SUCCESS':
-            return {
-                ...state,
-                list: payload.list
-            }
+    if (payload != undefined && !payload.error) {
 
-        case 'CREATE_CATEGORY_SUCCESS':
-            return {
-                ...state,
-                list: [payload, ...state.list]
-            }
+        switch (type) {
+            case 'FETCH_CATEGORIES_SUCCESS':
+                return {
+                    ...state,
+                    list: payload.list
+                }
 
-        default:
-            return state
+            case 'CREATE_CATEGORY_SUCCESS':
+                return {
+                    ...state,
+                    list: [payload, ...state.list]
+                }
+        }
     }
+
+    return state
 }

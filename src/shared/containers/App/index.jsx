@@ -4,6 +4,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
+import url from 'url'
 import Grid  from 'react-bootstrap/lib/Grid';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
@@ -22,7 +23,58 @@ const propTypes = {
 }
 
 class App extends Component {
+
+    state = {
+        renderChildren: true
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.location.pathname !== this.props.location.pathname){
+            //console.log('location changed', nextProps.location.pathname)
+
+            const {router, location, user} = nextProps
+
+            this.setState({renderChildren: true})
+
+            router.routes.forEach(route => {
+                const component = route.component.WrappedComponent || route.component
+
+                if (component.loginRequired && user.id == -1){
+
+                    this.setState({renderChildren: false})
+
+                    router.push(url.format({
+                        pathname: '/login',
+                        query: {
+                            next: location.pathname + location.search
+                        }
+                    }))
+                }
+
+                if (component.anonymousRequired && user.id != -1) {
+
+                    this.setState({renderChildren: false})
+
+                    // todo - подумать о том что случится, если будет переход на страницу "login"
+                    // не при помощи набора в адрессной строке (тогда будет простой редирект), а
+                    // при помощи инструментов router'а - видимо нужно перенаправить юзера откуда
+                    // пришел
+                    router.push(url.format({
+                        pathname: '/',
+                        // query: {
+                        //     next: location.pathname + location.search
+                        // }
+                    }))
+                }
+            })
+        }
+    }
+
     render() {
+        const {renderChildren} = this.state
+
+        //console.log(renderChildren ? 'App renders' : 'App renders w/o children')
+
         return (
             <div className="main">
                 <Navbar>
@@ -40,7 +92,7 @@ class App extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 <Grid>
-                    {this.props.children}
+                    {renderChildren && this.props.children}
                 </Grid>
             </div>
         );
