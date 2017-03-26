@@ -6,7 +6,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
-import {domain} from '../config'
+import {domain} from 'config'
 import createStaticPage from './server/createStaticPage'
 import setApiListeners from './server/setApiListeners'
 import login from './server/security/login'
@@ -16,7 +16,7 @@ const app = express()
 
 // стандартный модуль, для парсинга JSON в запросах
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(cookieParser())
 
 app.use(express.static('public'))

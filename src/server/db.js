@@ -3,7 +3,7 @@
  */
 
 import mysql from 'mysql'
-import {dbConfig} from '../../config'
+import {dbConfig} from 'config'
 
 const db = mysql.createConnection(dbConfig)
 

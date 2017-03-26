@@ -1,4 +1,4 @@
-.TransactionInputPanel {
+:local(.main) {
     position: fixed;
     bottom:0;
     left:0;
@@ -8,63 +8,63 @@
     padding: 10px 30px;
 }
 
-.TransactionInputPanel .form-control,
-.TransactionInputPanel .checkbox {
+:local(.main) .form-control,
+:local(.main) .checkbox {
     display: inline-block;
     margin-right: 10px;
     vertical-align: middle;
 }
 
-.TransactionInputPanel .form-control.form-control-sm[type="text"] {
+:local(.main) .form-control.form-control-sm[type="text"] {
     height: auto;
     padding: 4px 8px;
 }
 
-.TransactionInputPanel .name {
+:local(.main) .name {
     width: 30%;
 }
 
-.TransactionInputPanel .value {
+:local(.main) .value {
     width: 11%;
     float: right;
     margin-right: 10px;
 }
 
-.TransactionInputPanel .value .form-control {
+:local(.main) .value .form-control {
     text-align: right;
     width: 100%;
 }
 
-.TransactionInputPanel .value button {
+:local(.main) .value button {
     width:42px
 }
 
-.TransactionInputPanel .submit {
+:local(.main) .submit {
     float:right;
     padding: 9px 15px;
 }
 
-.TransactionInputPanel .cancelEdit {
+:local(.main) .cancelEdit {
     float: right;
     margin-right: 10px;
     padding: 9px 15px;
 }
 
-.TransactionInputPanel .category {
+:local(.main) .category {
     width: 15%;
 }
 
-.TransactionInputPanel .beneficiars {
+:local(.main) .beneficiars {
     width: 18%;
     display: inline-block;
     vertical-align: middle;
 }
 
-.TransactionInputPanel .beneficiars .form-control {
+:local(.main) .beneficiars .form-control {
     width: 100%;
 }
 
-.TransactionInputPanel .date {
+:local(.main) .date {
     width: 150px;
     text-align: center;
 }

@@ -2,6 +2,7 @@
  * Created by lerayne on 07.01.17.
  */
 
+import 'babel-polyfill'
 import React      from 'react'
 import ReactDOM   from 'react-dom'
 import {browserHistory, Router} from 'react-router'

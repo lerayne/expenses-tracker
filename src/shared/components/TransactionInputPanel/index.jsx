@@ -12,7 +12,7 @@ import Checkbox from 'react-bootstrap/lib/Checkbox'
 
 import DateInput from '../DateInput'
 
-import './TransactionInputPanel.css'
+import css from './TransactionInputPanel.css'
 
 const validDateFormats = ['YYYY-MM-DD', 'YYYY-MM-DD HH:mm']
 
@@ -73,9 +73,9 @@ export default class TransactionInputPanel extends Component {
             category = -1
         }
 
-        return <div className="TransactionInputPanel">
-
+        return <div className={css.main} id="Test">
             <div>
+                sadd
                 <FormControl
                     type="text"
                     className="name"

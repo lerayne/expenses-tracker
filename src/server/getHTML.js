@@ -2,7 +2,7 @@
  * Created by lerayne on 08.01.17.
  */
 
-const assetUrl = process.env.NODE_ENV == 'production' ? '' : 'http://localhost:8050/public/'
+const assetUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8050/public/' : ''
 
 export default function renderHTML(componentHTML, initialState) {
     const html = `

@@ -4,8 +4,8 @@
 
 import ms from 'ms'
 
-import {domain} from '../../../config'
-import {keyExpiresIn} from '../../../config'
+import {domain} from 'config'
+import {keyExpiresIn} from 'config'
 import createToken from './createToken'
 
 export default async function grantAccess(req, res, insecureUser) {
