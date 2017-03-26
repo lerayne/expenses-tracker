@@ -75,7 +75,6 @@ export default class TransactionInputPanel extends Component {
 
         return <div className={css.main} id="Test">
             <div>
-                sadd
                 <FormControl
                     type="text"
                     className="name"

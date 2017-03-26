@@ -7,14 +7,6 @@ const path = require('path')
 const getExternals = require('webpack-node-externals')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const externals = getExternals({
-    whitelist: [
-        /\.css$/i
-    ]
-})
-
-console.log('externals', externals)
-
 module.exports = function (env) {
 
     const DEV = env.mode === 'development'
@@ -24,7 +16,7 @@ module.exports = function (env) {
         babelrc: false,
         presets: [
             ["env", {
-                targets: {node: "current"}
+                targets: {node: DEV ? "current" : 6}
             }],
             "react",
             "stage-0",
