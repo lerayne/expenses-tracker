@@ -27,7 +27,7 @@ app.post('/login', login)
 // logout
 app.get('/logout', (req, res) => {
     res.clearCookie('access_token', {path:'/', domain})
-    res.redirect(302, '/')
+    res.redirect(302, '/login')
 })
 
 // API HANDLERS
