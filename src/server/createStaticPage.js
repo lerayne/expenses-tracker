@@ -38,7 +38,7 @@ export default async function createStaticPage(req, res) {
     match({
         routes: RoutesComponent(store),
         location: req.url
-    }, (error, redirectLocation, renderProps) => {
+    }, async(error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
             return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
@@ -52,26 +52,22 @@ export default async function createStaticPage(req, res) {
             return res.status(404).send('Not found')
         }
 
-        const promises = []
+        const promises = renderProps.routes.reduce((arr, route) => {
+            const comp = route.component.WrappedComponent || route.component
+            return comp.initialize ? arr.concat([comp.initialize(store.dispatch)]) : arr
+        }, [])
 
-        renderProps.routes.forEach(route => {
-            const component = route.component.WrappedComponent || route.component
+        if (promises.length) {
+            await Promise.all(promises)
+        }
 
-            if (component.initialize) {
-                promises.push(component.initialize(store.dispatch))
-            }
-        })
+        const componentHTML = ReactDom.renderToString(
+            <Provider store={store}>
+                <RouterContext {...renderProps} />
+            </Provider>
+        )
 
-        Promise.all(promises).then(() => {
-
-            const componentHTML = ReactDom.renderToString(
-                <Provider store={store}>
-                    <RouterContext {...renderProps} />
-                </Provider>
-            )
-
-            // рендерим html, включая в него текущий state для передачи клиентскому redux
-            res.end(getHTML(componentHTML, store.getState()))
-        })
+        // рендерим html, включая в него текущий state для передачи клиентскому redux
+        res.end(getHTML(componentHTML, store.getState()))
     })
 }
