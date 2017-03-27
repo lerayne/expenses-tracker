@@ -35,7 +35,10 @@ export default async function createStaticPage(req, res) {
     }
 
     // смотрим, соответсвует ли путь запроса одному из путей роутинга
-    match({routes: RoutesComponent(store), location: req.url}, (error, redirectLocation, renderProps) => {
+    match({
+        routes: RoutesComponent(store),
+        location: req.url
+    }, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
             return res.redirect(302, redirectLocation.pathname + redirectLocation.search)

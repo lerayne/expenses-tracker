@@ -23,19 +23,29 @@ function getRedirectUrl(pathname, prevLocation = false){
     return url.format(urlObject)
 }
 
+/**
+ * Check access to route container and redirect if not allowed
+ * @param globalState
+ * @param routerState
+ * @param redirect
+ * @returns {boolean}
+ */
 function redirectionsCheck(globalState, routerState, redirect){
 
     const {user} = globalState
     const {routes, location} = routerState
+    let redirected = false
 
     routes.forEach(route => {
         const component = route.component.WrappedComponent || route.component
 
         if (component.loginRequired && user.id === -1) {
+            redirected = true
             redirect(getRedirectUrl('/login', location))
         }
 
         if (component.anonymousRequired && user.id !== -1) {
+            redirected = true
             // todo - подумать о том что случится, если будет переход на страницу "login"
             // не при помощи набора в адрессной строке (тогда будет простой редирект), а
             // при помощи инструментов router'а - видимо нужно перенаправить юзера откуда
@@ -43,30 +53,41 @@ function redirectionsCheck(globalState, routerState, redirect){
             redirect(getRedirectUrl('/'))
         }
     })
+
+    return redirected
 }
 
-export default function RoutesComponent(store) {
-
-    const state = store.getState()
-
-    const onEnter = function(nextRouterState, redirect){
-        // only on server
+/**
+ * Handle initial server authorization redirects
+ * @param store
+ * @returns {Function}
+ */
+function onEnter(store){
+    return function (nextRouterState, redirect){
         if (!process.env.BROWSER){
-            redirectionsCheck(state, nextRouterState, redirect)
+            redirectionsCheck(store.getState(), nextRouterState, redirect)
         }
     }
+}
 
-    const onChange = function(prevRouterState, nextRouterState, redirect){
-        // only on client
+/**
+ * Handle client authorization redirects
+ * @param store
+ * @returns {Function}
+ */
+function onChange(store){
+    return function(prevRouterState, nextRouterState, redirect){
         if (process.env.BROWSER){
             // onChange is called under query change, we want to omit this
             if (prevRouterState.location.pathname !== nextRouterState.location.pathname){
-                redirectionsCheck(state, nextRouterState, redirect)
+                redirectionsCheck(store.getState(), nextRouterState, redirect)
             }
         }
     }
+}
 
-    return <Route component={App} path='/' onEnter={onEnter} onChange={onChange}>
+export default function RoutesComponent(store) {
+    return <Route component={App} path='/' onEnter={onEnter(store)} onChange={onChange(store)}>
         <IndexRoute component={TransactionsPage}/>
         <Route path="categories" component={CategoriesPage}/>
         <Route path="login" component={LoginPage}/>
