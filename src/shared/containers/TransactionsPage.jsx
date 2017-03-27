@@ -24,8 +24,8 @@ moment.locale('ru')
 
 class TransactionsPage extends Component {
 
-    static initialize(dispatch) {
-        return dispatch(transactionsPageInit())
+    static initialize(dispatch, location) {
+        return dispatch(transactionsPageInit(location))
     }
 
     static loginRequired = true
@@ -35,8 +35,9 @@ class TransactionsPage extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.transactions.length) {
-            TransactionsPage.initialize(this.props.dispatch)
+        const {transactions, location, dispatch} = this.props
+        if (!transactions.length) {
+            TransactionsPage.initialize(dispatch, location)
         }
     }
 

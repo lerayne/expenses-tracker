@@ -16,8 +16,8 @@ import {
 
 class CategoriesPage extends Component {
 
-    static initialize(dispatch) {
-        return dispatch(categoriesPageInit())
+    static initialize(dispatch, location) {
+        return dispatch(categoriesPageInit(location))
     }
 
     static loginRequired = true
@@ -30,8 +30,11 @@ class CategoriesPage extends Component {
         super()
     }
 
-    componentWillMount(){
-        //SSR!
+    componentDidMount(){
+        const {categories, dispatch, location} = this.props
+        if (!categories.length){
+            CategoriesPage.initialize(dispatch, location)
+        }
     }
 
     render() {

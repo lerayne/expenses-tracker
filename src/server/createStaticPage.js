@@ -38,7 +38,7 @@ export default async function createStaticPage(req, res) {
     match({
         routes: RoutesComponent(store),
         location: req.url
-    }, async(error, redirectLocation, renderProps) => {
+    }, async (error, redirectLocation, renderProps) => {
 
         if (redirectLocation) { // Если необходимо сделать redirect
             return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
@@ -54,7 +54,9 @@ export default async function createStaticPage(req, res) {
 
         const promises = renderProps.routes.reduce((arr, route) => {
             const comp = route.component.WrappedComponent || route.component
-            return comp.initialize ? arr.concat([comp.initialize(store.dispatch)]) : arr
+            if (comp.initialize){
+                return arr.concat([comp.initialize(store.dispatch, renderProps.location)])
+            } else return arr
         }, [])
 
         if (promises.length) {

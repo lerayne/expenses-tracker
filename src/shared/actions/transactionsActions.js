@@ -14,7 +14,7 @@ import {fetchCategories} from './categoriesActions'
  *
  * @returns {function(func, func) => Promise}
  */
-export function transactionsPageInit(){
+export function transactionsPageInit(location){
     return dispatch => {
 
         const now = moment()
