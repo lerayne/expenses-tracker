@@ -40,14 +40,15 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
-    "babel-register": "^6.24.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.2.2",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
     "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.24.0",
+    "classnames": "^2.2.5",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.1.0",

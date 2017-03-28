@@ -13,7 +13,7 @@ import RoutesComponent from '../shared/routes'
 import getHTML from './getHTML'
 import configureStore from '../shared/configureStore'
 
-export default async function createStaticPage(req, res) {
+export default async function createIsomorphicPage(req, res) {
 
     // создаем store (для каждого подключения store будет свой, т.к. store - это отражение
     // клиентского состояния, а не состояния всего приложения)

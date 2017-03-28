@@ -26,8 +26,9 @@
 
 :local(.main) .value {
     width: 11%;
-    float: right;
-    margin-right: 10px;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 :local(.main) .value .form-control {
@@ -39,13 +40,15 @@
     width:42px
 }
 
+:local(.main) .buttons-group {
+    float: right;
+}
+
 :local(.main) .submit {
-    float:right;
     padding: 9px 15px;
 }
 
 :local(.main) .cancelEdit {
-    float: right;
     margin-right: 10px;
     padding: 9px 15px;
 }
@@ -67,4 +70,51 @@
 :local(.main) .date {
     width: 150px;
     text-align: center;
+}
+
+@media screen and (max-width: 40rem) {
+    :local(.main) {
+        padding: 10px;
+        height: 175px;
+    }
+
+    :local(.main) .mobile-row {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    :local(.main) .name {
+        width: 100%;
+        margin: 0;
+    }
+
+    :local(.main) .category {
+        width: 48%;
+        margin: 0;
+    }
+
+    :local(.main) .value {
+        width: 48%;
+        float: right;
+    }
+
+    :local(.main) .beneficiars {
+        display: none;
+    }
+
+    :local(.main) .date {
+        width: 110px;
+    }
+
+    :local(.main) .buttons-group {
+        text-align: right;
+    }
+
+    :local(.main).edit {
+        height: 220px;
+    }
+
+    :local(.main).edit .buttons-group {
+        float: none;
+    }
 }

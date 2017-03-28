@@ -4,6 +4,7 @@
 
 import React, {Component} from 'react'
 import moment from 'moment'
+import cn from 'classnames'
 
 import Button from 'react-bootstrap/lib/Button'
 import FormControl from 'react-bootstrap/lib/FormControl'
@@ -40,9 +41,9 @@ export default class TransactionInputPanel extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.transaction != this.props.transaction) {
+        if (newProps.transaction !== this.props.transaction) {
 
-            if (typeof newProps.transaction == 'object') {
+            if (typeof newProps.transaction === 'object') {
                 this.enterEditMode(newProps.transaction)
             }
 
@@ -69,100 +70,110 @@ export default class TransactionInputPanel extends Component {
             cancelEdit
         } = this.props
 
-        if (category === null){
+        if (category === null) {
             category = -1
         }
 
-        return <div className={css.main} id="Test">
+        const EDIT = mode === 'edit'
+
+        return <div className={cn(css.main, {edit: EDIT})} id="Test">
             <div>
-                <FormControl
-                    type="text"
-                    className="name"
-                    placeholder="Название"
-                    value={name}
-                    onChange={e => this.setState({name: e.target.value})}
-                    onKeyUp={::this.handleType}
-                />
-
-                <FormControl
-                    componentClass="select"
-                    className="category"
-                    placeholder="Категория"
-                    value={category}
-                    onChange={e => this.setState({category: e.target.value})}
-                >
-                    <option value={-1}>Категория (нет)</option>
-                    {categories.map(category =>
-                        <option key={category.id} value={category.id}>{category.name}</option>
-                    )}
-                </FormControl>
-
-                {/*<FormControl
-                 className="category"
-                 componentClass="select"
-                 placeholder="Подкатегория"
-                 >
-                 <option value={-1}>Подкатегория (нет)</option>
-                 <option>2</option>
-                 <option>3</option>
-                 </FormControl>*/}
-
-                <span className="beneficiars">
-                    <InputGroup>
-                        <FormControl type="text" placeholder="Бенефициары" disabled={true}/>
-                        <InputGroup.Button>
-                            <Button>+</Button>
-                        </InputGroup.Button>
-                    </InputGroup>
+                <span className="mobile-row row1">
+                    <FormControl
+                        type="text"
+                        className="name"
+                        placeholder="Название"
+                        value={name}
+                        onChange={e => this.setState({name: e.target.value})}
+                        onKeyUp={::this.handleType}
+                    />
                 </span>
 
-                {mode == 'create' && <Button
-                    className="submit"
-                    bsStyle="primary"
-                    onClick={::this.submit}
-                    disabled={!this.canSubmit()}
-                >Добавить</Button>}
+                <span className="mobile-row row2">
+                    <FormControl
+                        componentClass="select"
+                        className="category"
+                        placeholder="Категория"
+                        value={category}
+                        onChange={e => this.setState({category: e.target.value})}
+                    >
+                        <option value={-1}>Категория (нет)</option>
+                        {categories.map(category =>
+                            <option key={category.id} value={category.id}>{category.name}</option>
+                        )}
+                    </FormControl>
 
-                {mode == 'edit' && <Button
-                    className="submit"
-                    bsStyle="primary"
-                    onClick={::this.save}
-                    disabled={!this.canSubmit()}
-                >Сохранить</Button>}
+                    {/*<FormControl
+                     className="category"
+                     componentClass="select"
+                     placeholder="Подкатегория"
+                     >
+                     <option value={-1}>Подкатегория (нет)</option>
+                     <option>2</option>
+                     <option>3</option>
+                     </FormControl>*/}
 
-                {mode == 'edit' && <Button
-                    className="cancelEdit"
-                    onClick={cancelEdit}
-                >
-                    Отмена
-                </Button>}
+                    <span className="beneficiars">
+                        <InputGroup>
+                            <FormControl type="text" placeholder="Бенефициары" disabled={true}/>
+                            <InputGroup.Button>
+                                <Button>+</Button>
+                            </InputGroup.Button>
+                        </InputGroup>
+                    </span>
 
-                <span className="value">
-                    <InputGroup>
-                        <InputGroup.Button>
-                            {!income && <Button
-                                className="expense"
-                                bsStyle="danger"
-                                onClick={() => this.setState({income: true})}
-                            >-</Button>}
+                    <span className="value">
+                        <InputGroup>
+                            <InputGroup.Button>
+                                {!income && <Button
+                                    className="expense"
+                                    bsStyle="danger"
+                                    onClick={() => this.setState({income: true})}
+                                >-</Button>}
 
-                            {!!income && <Button
-                                className="income"
-                                bsStyle="success"
-                                onClick={() => this.setState({income: false})}
-                            >+</Button>}
-                        </InputGroup.Button>
-                        <FormControl
-                            type="text"
-                            placeholder="Сумма"
-                            value={value}
-                            onChange={e => this.setState({value: e.target.value})}
-                            onKeyUp={::this.handleType}
-                        />
-                    </InputGroup>
+                                {!!income && <Button
+                                    className="income"
+                                    bsStyle="success"
+                                    onClick={() => this.setState({income: false})}
+                                >+</Button>}
+                            </InputGroup.Button>
+                            <FormControl
+                                type="text"
+                                placeholder="Сумма"
+                                value={value}
+                                onChange={e => this.setState({value: e.target.value})}
+                                onKeyUp={::this.handleType}
+                            />
+                        </InputGroup>
+                    </span>
                 </span>
 
+                <span className="mobile-row row3">
+                    <div className="buttons-group">
+                        {!EDIT && <Button
+                            className="submit"
+                            bsStyle="primary"
+                            onClick={::this.submit}
+                            disabled={!this.canSubmit()}
+                        >Добавить</Button>}
+
+                        {EDIT && <Button
+                            className="cancelEdit"
+                            onClick={cancelEdit}
+                        >
+                            Отмена
+                        </Button>}
+
+                        {EDIT && <Button
+                            className="submit"
+                            bsStyle="primary"
+                            onClick={::this.save}
+                            disabled={!this.canSubmit()}
+                        >Сохранить</Button>}
+                    </div>
+                </span>
             </div>
+
             <div>
                 <Checkbox
                     checked={dateIsNow}
@@ -294,7 +305,7 @@ export default class TransactionInputPanel extends Component {
         }
     }
 
-    getMomentFromFormatted(date){
+    getMomentFromFormatted(date) {
         return moment(date, validDateFormats)
     }
 }

@@ -8,7 +8,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import {domain} from 'config'
-import createStaticPage from './server/createStaticPage'
+import createIsomorphicPage from './server/createIsomorphicPage'
 import setApiListeners from './server/setApiListeners'
 import login from './server/security/login'
 
@@ -20,6 +20,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(cookieParser())
 
+// раздаем статику
 app.use(express.static('public'))
 
 // post login
@@ -35,7 +36,7 @@ app.get('/logout', (req, res) => {
 setApiListeners(app)
 
 // коллбек на запрос к серверу (doesn't start width "/api/")
-app.get(/^(?!\/api\/).*$/, createStaticPage)
+app.get(/^(?!\/api\/).*$/, createIsomorphicPage)
 
 const PORT = process.env.LISTEN || 3001
 
