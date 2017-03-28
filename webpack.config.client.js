@@ -77,7 +77,7 @@ module.exports = function (env) {
         plugins,
 
         output: {
-            path: `${__dirname}/public/assets/`,
+            path: `${__dirname}/public/`,
             filename: jsName,
             publicPath
         },

@@ -4,6 +4,7 @@
 
 module.exports = {
     domain: 'localhost',
+    staticResourcesUrl:'',
     secretKey: 'mYuBeRsEcReTkEy192837465',
     keyExpiresIn: '30 days',
     dbConfig: {

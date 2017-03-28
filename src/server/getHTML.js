@@ -2,7 +2,10 @@
  * Created by lerayne on 08.01.17.
  */
 
-const assetUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8050/public/' : ''
+import {staticResourcesUrl} from 'config'
+
+const DEV = process.env.NODE_ENV === 'development'
+const assetUrl = DEV ? 'http://localhost:8050/public/' : staticResourcesUrl
 
 export default function renderHTML(componentHTML, initialState) {
     const html = `
@@ -12,7 +15,7 @@ export default function renderHTML(componentHTML, initialState) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Expenses tracker</title>
-        <link rel="stylesheet" href="${assetUrl}assets/styles.css">
+        <link rel="stylesheet" href="${assetUrl}styles.css">
         <script>
           window.REDUX_INITIAL_STATE = ${JSON.stringify(initialState)}
         </script>
@@ -20,7 +23,7 @@ export default function renderHTML(componentHTML, initialState) {
       <body>
         <div id="react-view">${componentHTML}</div>
         <div id="dev-tools"></div>
-        <script type="application/javascript" src="${assetUrl}assets/bundle.js"></script>
+        <script type="application/javascript" src="${assetUrl}bundle.js"></script>
       </body>
     </html>
   `
