@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const publicPath = 'http://localhost:8050/public/assets';
 // const cssName            = PROD ? 'styles-[hash].css' : 'styles.css';
@@ -33,7 +34,9 @@ module.exports = function (env) {
         new webpack.LoaderOptionsPlugin({
             debug: DEV,
             minimize: PROD
-        })
+        }),
+
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|ru/)
     ]
 
     const babelOptions = {
@@ -62,6 +65,12 @@ module.exports = function (env) {
         plugins.push(new webpack.optimize.UglifyJsPlugin({
             mangle: true,
             comments: false
+        }))
+
+        plugins.push(new BundleAnalyzer({
+            analyzerMode:'static',
+            reportFilename: 'webpack-analysis.html',
+            openAnalyzer: false
         }))
 
         babelOptions.presets.push('react-optimize')

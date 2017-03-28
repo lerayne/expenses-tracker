@@ -79,7 +79,6 @@ module.exports = function (env) {
                     use: [{
                         loader: 'css-loader/locals',
                         options: {
-                            url: false,
                             localIdentName: '[name]-[local]--[hash:base64:5]'
                         }
                     }]
