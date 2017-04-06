@@ -70,6 +70,6 @@ export default async function createIsomorphicPage(req, res) {
         )
 
         // рендерим html, включая в него текущий state для передачи клиентскому redux
-        res.end(getHTML(componentHTML, store.getState()))
+        res.send(getHTML(componentHTML, store.getState()))
     })
 }

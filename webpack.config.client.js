@@ -10,7 +10,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const publicPath = 'http://localhost:8050/public/assets';
+;
 // const cssName            = PROD ? 'styles-[hash].css' : 'styles.css';
 // const jsName             = PROD ? 'bundle-[hash].js' : 'bundle.js';
 const cssName = 'styles.css';
@@ -20,6 +20,8 @@ module.exports = function (env) {
 
     const PROD = env.mode === 'production'
     const DEV = env.mode === 'development'
+
+    const publicPath = DEV ? '//localhost:8050/public/assets' : '/public/'
 
     const plugins = [
         new webpack.DefinePlugin({

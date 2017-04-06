@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(cookieParser())
 
 // раздаем статику
-// app.use(express.static('public'))
+app.use('/public', express.static('public'))
 
 // post login
 app.post('/login', login)
