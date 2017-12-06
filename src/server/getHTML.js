@@ -5,7 +5,7 @@
 import {staticResourcesUrl} from 'config'
 
 const DEV = process.env.NODE_ENV === 'development'
-const assetUrl = DEV ? '//localhost:8050/public/' : staticResourcesUrl
+const assetUrl = DEV ? '//localhost:8050/public/assets/' : staticResourcesUrl
 
 export default function renderHTML(componentHTML, initialState) {
     const html = `

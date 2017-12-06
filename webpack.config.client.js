@@ -8,9 +8,8 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-;
 // const cssName            = PROD ? 'styles-[hash].css' : 'styles.css';
 // const jsName             = PROD ? 'bundle-[hash].js' : 'bundle.js';
 const cssName = 'styles.css';
@@ -20,13 +19,16 @@ module.exports = function (env) {
 
     const PROD = env.mode === 'production'
     const DEV = env.mode === 'development'
+    const HOT = env.hot !== undefined
 
-    const publicPath = DEV ? '//localhost:8050/public/assets' : '/public/'
+    let publicPath = '/public/'
+    if (HOT) { publicPath = '//localhost:8050/public/assets/'}
 
     const plugins = [
         new webpack.DefinePlugin({
             'process.env': {
                 BROWSER: JSON.stringify(true),
+                HOT: JSON.stringify(HOT),
                 NODE_ENV: JSON.stringify(env.mode || 'development')
             }
         }),
