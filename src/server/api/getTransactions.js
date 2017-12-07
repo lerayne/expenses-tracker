@@ -25,7 +25,7 @@ export default async function getTransactions(dateFrom, dateTo) {
             AND official_date < ?
         ORDER BY official_date DESC 
     `, [
-        1, // user
+        1, // todo: pass actual user!!!
         dateFrom,
         dateTo
     ])

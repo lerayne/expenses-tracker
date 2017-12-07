@@ -38,6 +38,7 @@ class App extends Component {
                     <Navbar.Collapse>
                         <Nav navbar>
                             <LinkContainer to="/categories"><NavItem>Категории</NavItem></LinkContainer>
+                            <LinkContainer to="/stats"><NavItem>Статистика</NavItem></LinkContainer>
                             {this.props.user.id > 0 && <NavItem href="/logout">Log out</NavItem>}
                         </Nav>
                     </Navbar.Collapse>

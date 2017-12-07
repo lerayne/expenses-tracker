@@ -10,6 +10,7 @@ import getCategories from './getCategories'
 import createCategory from './createCategory'
 import editTransaction from './editTransaction'
 import getUserAuth from './getUserAuth'
+import getTotalStats from './getTotalStats'
 
 export default {
     getTransactions,
@@ -19,5 +20,6 @@ export default {
     getCategories,
     createCategory,
     editTransaction,
-    getUserAuth
+    getUserAuth,
+    getTotalStats
 }

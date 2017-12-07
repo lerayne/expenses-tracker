@@ -1,27 +1,20 @@
 /**
- * Created by lerayne on 19.02.17.
+ * Created by lerayne on 08.12.2017.
  */
 
 const initialState = {
-    list: []
+    totalIncome: 0
 }
 
 export default function (state = initialState, action) {
     const {type, payload} = action
 
     if (payload !== undefined && !payload.error) {
-
         switch (type) {
-            case 'FETCH_CATEGORIES_SUCCESS':
+            case 'FETCH_TOTAL_STATS_SUCCESS':
                 return {
                     ...state,
-                    list: payload.list
-                }
-
-            case 'CREATE_CATEGORY_SUCCESS':
-                return {
-                    ...state,
-                    list: [payload, ...state.list]
+                    totalIncome: payload.totalIncome*1
                 }
         }
     }

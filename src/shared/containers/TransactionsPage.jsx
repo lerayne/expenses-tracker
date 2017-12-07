@@ -5,7 +5,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
-import url from 'url'
 
 import {
     transactionsPageInit,
@@ -36,6 +35,7 @@ class TransactionsPage extends Component {
 
     componentDidMount() {
         const {transactions, location, dispatch} = this.props
+        // todo - wrong definition. what if there is really no transactions in the month?
         if (!transactions.length) {
             TransactionsPage.initialize(dispatch, location)
         }

@@ -58,4 +58,8 @@ export default function setApiListeners(app) {
     app.post('/api/category',
         async(req, res) => await authorized(req, res) && res.json(await api.createCategory(req.body))
     )
+
+    app.get('/api/stats',
+        async(req, res) => await authorized(req, res) && res.json(await api.getTotalStats())
+    )
 }

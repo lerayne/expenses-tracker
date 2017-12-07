@@ -33,3 +33,8 @@ export function query(query, data=false){
         db.query(...params)
     })
 }
+
+export async function queryCell(cellName, queryString, data=false){
+    const result = await query(queryString, data)
+    return result[0][cellName]
+}

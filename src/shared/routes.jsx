@@ -9,6 +9,7 @@ import App from './containers/App'
 import TransactionsPage from './containers/TransactionsPage'
 import CategoriesPage from './containers/CategoriesPage'
 import LoginPage from './containers/LoginPage'
+import StatsPage from './containers/StatsPage'
 
 function getRedirectUrl(pathname, prevLocation = false){
     const urlObject = {
@@ -90,6 +91,7 @@ export default function RoutesComponent(store) {
     return <Route component={App} path='/' onEnter={onEnter(store)} onChange={onChange(store)}>
         <IndexRoute component={TransactionsPage}/>
         <Route path="categories" component={CategoriesPage}/>
+        <Route path="stats" component={StatsPage}/>
         <Route path="login" component={LoginPage}/>
     </Route>
 }

@@ -16,7 +16,7 @@ const initialState = {
 export default function expensesReducer(state = initialState, action) {
     const {type, payload} = action
 
-    if (payload != undefined && !payload.error) {
+    if (payload !== undefined && !payload.error) {
 
         switch (type) {
 
