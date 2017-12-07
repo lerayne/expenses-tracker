@@ -11,6 +11,7 @@ module.exports = function (env) {
 
     const DEV = env.mode === 'development'
     const PROD = env.mode === 'production'
+    const HOT = env.hot !== undefined
 
     const babelOptions = {
         babelrc: false,
@@ -33,7 +34,8 @@ module.exports = function (env) {
         new webpack.DefinePlugin({
             'process.env': {
                 BROWSER: JSON.stringify(false),
-                NODE_ENV: JSON.stringify(env.mode || 'development')
+                NODE_ENV: JSON.stringify(env.mode || 'development'),
+                HOT: JSON.stringify(HOT)
             }
         })
     ]

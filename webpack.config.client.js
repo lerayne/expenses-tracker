@@ -53,7 +53,7 @@ module.exports = function (env) {
         plugins:[]
     }
 
-    if (DEV) {
+    if (HOT) {
         babelOptions.plugins.push('react-hot-loader/babel')
     }
 

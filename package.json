@@ -11,7 +11,9 @@
     "prod-client": "webpack --env.mode=production --config=webpack.config.client.js --progress",
     "prod-server": "webpack --env.mode=production --config=webpack.config.server.js --progress",
     "dev-client": "webpack-dev-server --env.mode=development --env.hot --config=webpack.config.client.js --debug --hot --devtool inline-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0",
-    "dev-server": "webpack --env.mode=development --config=webpack.config.server.js --progress && sleep 2"
+    "dev-client-ps": "webpack --env.mode=development --config=webpack.config.client.js",
+    "dev-server": "webpack --env.mode=development --env.hot --config=webpack.config.server.js --progress && sleep 2",
+    "dev-server-ps": "webpack --env.mode=development --config=webpack.config.server.js --progress && sleep 2"
   },
   "author": "Michael Yegorov a.k.a Lerayne",
   "license": "MIT",
