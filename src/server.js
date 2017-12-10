@@ -12,8 +12,6 @@ import createIsomorphicPage from './server/createIsomorphicPage'
 import setApiListeners from './server/setApiListeners'
 import login from './server/security/login'
 
-console.log('test 3')
-
 // создаем центральный апп
 const app = express()
 

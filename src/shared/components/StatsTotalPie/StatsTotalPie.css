@@ -1,0 +1,24 @@
+:local(.main) {
+    border: solid #ddd;
+    border-width: 0 1px;
+    display: inline-block;
+    width:450px;
+}
+
+:local(.main) .recharts-label {
+    stroke: none;
+}
+
+:local(.main) .recharts-label.category {
+    font-size: 12px;
+    fill:#555;
+}
+
+:local(.main) .recharts-label.percent {
+    font-size: 11px;
+    fill:#fff;
+}
+
+:local(.main) .recharts-sector {
+    stroke:none;
+}

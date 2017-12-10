@@ -3,7 +3,8 @@
  */
 
 const initialState = {
-    totalIncome: 0
+    totalExpenses: 0,
+    totalCategories: []
 }
 
 export default function (state = initialState, action) {
@@ -14,7 +15,8 @@ export default function (state = initialState, action) {
             case 'FETCH_TOTAL_STATS_SUCCESS':
                 return {
                     ...state,
-                    totalIncome: payload.totalIncome*1
+                    totalExpenses: payload.totalExpenses*1,
+                    totalCategories: payload.totalCategories
                 }
         }
     }

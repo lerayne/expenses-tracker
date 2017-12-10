@@ -4,8 +4,8 @@
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
 import {statsPageInit} from '../actions/statsActions'
+import StatsTotalPie from '../components/StatsTotalPie'
 
 class StatsPage extends Component {
 
@@ -16,17 +16,26 @@ class StatsPage extends Component {
     static loginRequired = true
 
     componentWillMount() {
-        const {location, dispatch} = this.props
-        if (true /*todo - make a reasonable condition*/) {
+        const {totalExpenses, location, dispatch} = this.props
+        if (totalExpenses == 0 /*todo - make a reasonable condition*/) {
             StatsPage.initialize(dispatch, location)
         }
     }
 
     render() {
-        return <span>{this.props.totalIncome} грн</span>
+
+        let {totalExpenses, totalCategories} = this.props
+
+        totalExpenses = Math.abs(totalExpenses)
+
+        return <div>
+            <div>Общий расход за всё время: {totalExpenses} грн</div>
+            <StatsTotalPie {...{totalExpenses, totalCategories}}/>
+        </div>
     }
 }
 
 export default StatsPage = connect(state => ({
-    totalIncome: state.stats.totalIncome
+    totalExpenses: state.stats.totalExpenses,
+    totalCategories: state.stats.totalCategories
 }))(StatsPage)
