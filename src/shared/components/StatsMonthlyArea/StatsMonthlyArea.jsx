@@ -90,9 +90,8 @@ export default function StatsMonthlyArea({totalExpenses, totalsByMonths}) {
                 name={cat.name}
                 type="linear"
                 stackId="1"
+                fill={brightPalette[i % brightPalette.length]}
                 stroke={brightPalette[i % brightPalette.length]}
-                fill={palePalette[i % palePalette.length]}
-                dot={true}
                 isAnimationActive={false}
             />)}
 
