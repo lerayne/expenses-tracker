@@ -12,12 +12,15 @@ import cn from 'classnames'
 import ShortDate from '../../components/ShortDate'
 import './TransactionsList.css'
 
-export default function TransactionsList({
-                                             transactions,
-                                             categories,
-                                             deleteTransaction,
-                                             editTransaction
-                                         }) {
+export default function TransactionsList(props) {
+
+    const {
+        transactions,
+        categories,
+        deleteTransaction,
+        editTransaction
+    } = props
+
     return <div className="TransactionsList">
         <Table responsive condensed striped className="main-table">
             <thead>

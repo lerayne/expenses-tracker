@@ -5,11 +5,14 @@
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table'
 
-export default function TransactionsSummary({
-                                                totalIncome,
-                                                totalExpenses,
-                                                expectedRemains,
-                                            }) {
+export default function TransactionsSummary(props) {
+
+    const {
+        totalIncome,
+        totalExpenses,
+        expectedRemains,
+    } = props
+
     return <div className="TransactionsSummary">
         <Table responsive condensed striped>
             <thead>
