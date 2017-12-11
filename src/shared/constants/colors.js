@@ -22,3 +22,24 @@ export const brightPalette = [
     '#ffa000',
     '#ff7043'
 ]
+
+export const palePalette = [
+    '#e57373',
+    '#ba68c8',
+    '#7986cb',
+    '#4fc3f7',
+    '#4db6ac',
+    '#aed581',
+    '#fff176',
+    '#ffb74d',
+    '#a1887f',
+    '#90a4ae',
+    '#f06292',
+    '#9575cd',
+    '#64b5f6',
+    '#4dd0e1',
+    '#81c784',
+    '#dce775',
+    '#ffd54f',
+    '#ff8a65'
+]

@@ -39,11 +39,12 @@ export default function StatsTotalPie({totalCategories, totalExpenses}) {
                     key={i}
                     fill={brightPalette[i % brightPalette.length]}
                 />)}
+
                 <LabelList dataKey="displayCategory" position="outside" className="category"/>
                 <LabelList dataKey="displayPercent" position="inside" className="percent"/>
             </Pie>
             <Tooltip
-                itemStyle={{fontSize: '12px', padding: '10px'}}
+                itemStyle={{fontSize: '12px'}}
                 formatter={val => {
                     const part = val / totalExpenses
                     return `${(part * 100).toFixed(1)}% (${val} грн)`

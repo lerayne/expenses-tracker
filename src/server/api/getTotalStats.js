@@ -5,26 +5,41 @@
 import moment from 'moment'
 import {query, queryCell, queryPlain} from '../db'
 
-async function getTotalExpenses(){
+async function getTotalExpenses(dateFrom = false, dateTo = false) {
+
+    const params = [1] //todo: pass real user!
+
+    if (dateFrom) {
+        params.push(dateFrom * 1)
+    }
+    if (dateTo) {
+        params.push(dateTo * 1)
+    }
+
     let totalExpenses = await queryCell(`
         SELECT SUM(value) AS value
-            FROM transactions
-            WHERE income = 0
-    `)
+        FROM transactions
+        WHERE 
+            USER = ? 
+            AND income = 0
+            ${dateFrom ? 'AND official_date >= ?' : ''}
+            ${dateTo ? 'AND official_date <= ?' : ''}
+        `,
+        params
+    )
 
     return Math.abs(totalExpenses)
 }
 
-async function getTotalByCategories(dateFrom=false, dateTo=false){
+async function getTotalByCategories(dateFrom = false, dateTo = false) {
 
-    const minMax = []
+    const params = [1] //todo: pass real user!
 
     if (dateFrom) {
-        minMax.push(dateFrom*1)
+        params.push(dateFrom * 1)
     }
-
     if (dateTo) {
-        minMax.push(dateTo*1)
+        params.push(dateTo * 1)
     }
 
     // get total summary by categories
@@ -36,30 +51,32 @@ async function getTotalByCategories(dateFrom=false, dateTo=false){
         FROM transactions AS tas
         LEFT JOIN categories AS cat ON tas.category = cat.id
         WHERE
-            tas.income = 0
+            tas.user = ?
+            AND tas.income = 0
             ${dateFrom ? 'AND tas.official_date >= ?' : ''}
             ${dateTo ? 'AND tas.official_date <= ?' : ''}
-        GROUP BY tas.category    
+        GROUP BY tas.category
+        ORDER BY cat.name    
         `,
-        minMax
+        params
     )
 
-    totalCategories = totalCategories.map(({name, category, value}) => ({
-        name,
-        category,
-        value: Math.abs(value)
+    totalCategories = totalCategories.map(entry => ({
+        ...entry,
+        value: Math.abs(entry.value)
     }))
 
     return totalCategories
 }
 
-async function getTotalCategoriesByMonths(){
+async function getTotalCategoriesByMonths() {
     const dates = await queryPlain(`
         SELECT 
             MIN(official_date) AS minDate,
             MAX(official_date) AS maxDate
         FROM transactions
-    `)
+        WHERE user = ?
+    `, 1) //todo: real user!!!
 
     const minMoment = moment(dates.minDate).startOf('month')
     const maxMoment = moment(dates.maxDate).endOf('month')
@@ -70,10 +87,19 @@ async function getTotalCategoriesByMonths(){
 
         currentMax = minMoment.clone().endOf('month')
 
-        const monthData = await getTotalByCategories(currentMin.valueOf(), currentMax.valueOf())
+        const monthData = await getTotalByCategories(
+            currentMin.valueOf(),
+            currentMax.valueOf()
+        )
+
+        const monthTotal = await getTotalExpenses(
+            currentMin.valueOf(),
+            currentMax.valueOf()
+        )
 
         months.push({
-            data: monthData,
+            categories: monthData,
+            total: monthTotal,
             targetMonth: minMoment.format('YYYY.MM')
         })
 
