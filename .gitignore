@@ -2,6 +2,7 @@
 /public
 /.idea
 /expenses_*.sql
+/mysqldump*.sql
 /expenses.js
 
 /*.log

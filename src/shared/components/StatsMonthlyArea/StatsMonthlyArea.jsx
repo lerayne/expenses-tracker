@@ -24,8 +24,8 @@ export default function StatsMonthlyArea({totalExpenses, totalsByMonths}) {
 
             if (catIndex === -1){
                 catIndex = (-1) + categories.push({
-                    id: cat.category,
-                    name: cat.name,
+                    id: cat.category || 0,
+                    name: cat.name || 'Без категории',
                     valuable: false
                 })
             }
@@ -51,6 +51,8 @@ export default function StatsMonthlyArea({totalExpenses, totalsByMonths}) {
 
         monthData.categories.forEach(monthCat => {
 
+            if (monthCat.category === null) monthCat.category = 0
+
             //valuable data is passing without changes, invaluable is stacked in "others"
             const category = categories.find(catListEl => catListEl.id === monthCat.category)
 
@@ -67,15 +69,18 @@ export default function StatsMonthlyArea({totalExpenses, totalsByMonths}) {
     const otherCatsCount = categories.filter(cat => !cat.valuable).length
     categories = categories.filter(cat => cat.valuable)
 
-    categories.push({
+    categories.unshift({
         id:-1,
         name:`Другое (${otherCatsCount} кат.)`
     })
 
+    console.log('data', chartData)
+    console.log('cats', categories)
+
     return <div className={css.main}>
         <AreaChart width={630} height={300} data={chartData} stackOffset="expand">
 
-            {/*<YAxis tickCount={2} tickFormatter={toPercent}/>*/}
+            <YAxis tickCount={2} tickFormatter={toPercent}/>
             <XAxis dataKey="month"/>
 
             {/* Chart reverses data, so I need to reverse it too */}
@@ -97,10 +102,7 @@ export default function StatsMonthlyArea({totalExpenses, totalsByMonths}) {
                     return `${toPercent(val / object.payload.total, 1)} (${val} грн)`}
                 }
                 itemSorter={(a, b) => {
-                    if (a.dataKey*1 === -1) return 1 //-1 should go down
-                    if (a.dataKey > b.dataKey) return 1
-                    if (a.dataKey < b.dataKey) return -1
-                    if (a.dataKey === b.dataKey) return 0
+                    return a.dataKey - b.dataKey
                 }}
             />
         </AreaChart>
