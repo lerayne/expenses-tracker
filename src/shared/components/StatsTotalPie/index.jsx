@@ -26,7 +26,7 @@ export default function StatsTotalPie({totalCategories, totalExpenses}) {
     })
 
     return <div className={cn(css.main)}>
-        <PieChart width={450} height={300}>
+        <PieChart width={500} height={300}>
             <Pie
                 isAnimationActive={false}
                 data={totalCategories}

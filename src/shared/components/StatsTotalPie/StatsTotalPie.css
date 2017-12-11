@@ -2,7 +2,7 @@
     border: solid #ddd;
     border-width: 0 1px;
     display: inline-block;
-    width:450px;
+    width:500px;
 }
 
 :local(.main) .recharts-label {
