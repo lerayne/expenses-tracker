@@ -34,7 +34,19 @@ export function query(query, data=false){
     })
 }
 
-export async function queryCell(cellName, queryString, data=false){
+export async function queryCell(queryString, data=false){
     const result = await query(queryString, data)
+
+    //getting last name value (only one if one cell got)
+    let cellName
+    Object.keys(result[0]).forEach(key => {
+        cellName = key
+    })
+
     return result[0][cellName]
+}
+
+export async function queryPlain(queryString, data=false){
+    const result = await query(queryString, data)
+    return result[0]
 }

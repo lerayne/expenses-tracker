@@ -4,7 +4,8 @@
 
 const initialState = {
     totalExpenses: 0,
-    totalCategories: []
+    totalCategories: [],
+    totalsByMonths: []
 }
 
 export default function (state = initialState, action) {
@@ -16,7 +17,8 @@ export default function (state = initialState, action) {
                 return {
                     ...state,
                     totalExpenses: payload.totalExpenses*1,
-                    totalCategories: payload.totalCategories
+                    totalCategories: payload.totalCategories,
+                    totalsByMonths: payload.totalsByMonths
                 }
         }
     }

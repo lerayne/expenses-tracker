@@ -26,8 +26,6 @@ class StatsPage extends Component {
 
         let {totalExpenses, totalCategories} = this.props
 
-        totalExpenses = Math.abs(totalExpenses)
-
         return <div>
             <div>Общий расход за всё время: {totalExpenses} грн</div>
             <StatsTotalPie {...{totalExpenses, totalCategories}}/>
