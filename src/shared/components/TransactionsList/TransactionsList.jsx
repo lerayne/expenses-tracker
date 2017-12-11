@@ -13,11 +13,11 @@ import ShortDate from '../../components/ShortDate'
 import './TransactionsList.css'
 
 export default function TransactionsList({
-    transactions,
-    categories,
-    deleteTransaction,
-    editTransaction
-}) {
+                                             transactions,
+                                             categories,
+                                             deleteTransaction,
+                                             editTransaction
+                                         }) {
     return <div className="TransactionsList">
         <Table responsive condensed striped className="main-table">
             <thead>

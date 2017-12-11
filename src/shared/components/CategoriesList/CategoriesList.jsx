@@ -12,9 +12,9 @@ export default function CategoriesList({categories}) {
     return <div className="CategoriesList">
         <Table responsive condensed striped>
             <thead>
-                <tr>
-                    <th>Категория</th>
-                </tr>
+            <tr>
+                <th>Категория</th>
+            </tr>
             </thead>
             <tbody>
             {categories.map(category =>
