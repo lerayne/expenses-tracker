@@ -11,7 +11,9 @@ import {brightPalette} from '../../constants/colors'
 export default function StatsTotalPie({totalCategories, totalExpenses}) {
 
     totalCategories = totalCategories.map(cat => {
-        const {value, name, category} = cat
+        let {value, name, category} = cat
+
+        if (name === null) name = 'Без категории'
 
         const part = value / totalExpenses
 
