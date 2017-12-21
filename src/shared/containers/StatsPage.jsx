@@ -34,7 +34,7 @@ class StatsPage extends Component {
         return <div>
             <div>Общий расход за всё время: {totalExpenses} грн</div>
             <StatsTotalPie {...{totalExpenses, totalCategories}}/>
-            <StatsMonthlyArea {...{totalExpenses, totalsByMonths}}/>
+            <StatsMonthlyArea {...{totalsByMonths}}/>
         </div>
     }
 }

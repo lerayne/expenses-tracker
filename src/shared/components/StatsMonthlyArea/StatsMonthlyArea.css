@@ -6,3 +6,8 @@
 :local(.main) .recharts-cartesian-axis-tick-value {
     font-size: 12px;
 }
+
+:local(.main) .recharts-active-dot .recharts-dot {
+    stroke: none;
+    r: 3;
+}
