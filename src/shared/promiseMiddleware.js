@@ -30,7 +30,7 @@ export default function promiseMiddleware({getState, dispatch}) {
                         type: type + '_SUCCESS'
                     })
 
-                    // I dont remember if this actually does something, need to check
+                    // this is passed into next "then"
                     return true
                 },
                 error => {
@@ -41,6 +41,7 @@ export default function promiseMiddleware({getState, dispatch}) {
                         type: type + '_FAILURE'
                     })
 
+                    // this is passed into next "then"
                     return false
                 }
             )
