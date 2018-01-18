@@ -26,17 +26,16 @@ const months = [
     'декабрь',
 ]
 
-export default class TransactionsControls extends Component {
-    constructor(props){
-        super(props)
+const years = [
+    2017,
+    2018
+]
 
-        this.state = {
-            dateFrom: props.dateFrom,
-            dateTo: props.dateTo
-        }
-    }
+export default class TransactionsControls extends Component {
 
     render() {
+
+        //const {currentMonth, currentYear} = this.state
 
         const {dateFrom} = this.props
         const momentFrom = moment(dateFrom)
@@ -48,7 +47,13 @@ export default class TransactionsControls extends Component {
                 {/*<NavItem><i className="material-icons">&#xE314;</i></NavItem>*/}
 
                 <NavDropdown title={currentYear} id="basic-nav-dropdown">
-                    <MenuItem disabled>{currentYear}</MenuItem>
+                    {years.map(year =>
+                        <MenuItem
+                            key={year}
+                            disabled={currentYear === year}
+                            onClick={() => this.setYear(year, currentYear)}
+                        >{year}</MenuItem>
+                    )}
                 </NavDropdown>
 
                 <NavDropdown title={months[currentMonth]} id="basic-nav-dropdown">
@@ -74,5 +79,24 @@ export default class TransactionsControls extends Component {
         const newDateTo = newMoment.clone().endOf('month').valueOf()
 
         this.props.setDate(newDateFrom, newDateTo)
+    }
+
+    setYear(year, currentYear){
+
+        if (year !== currentYear){
+            const {dateFrom} = this.props
+            const newMoment = moment(dateFrom).clone().year(year)
+
+            if (year < currentYear) {
+                newMoment.month(11)
+            } else {
+                newMoment.month(0)
+            }
+
+            const newDateFrom = newMoment.clone().startOf('month').valueOf()
+            const newDateTo = newMoment.clone().endOf('month').valueOf()
+
+            this.props.setDate(newDateFrom, newDateTo)
+        }
     }
 }
