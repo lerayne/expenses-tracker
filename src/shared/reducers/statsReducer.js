@@ -5,7 +5,9 @@
 const initialState = {
     totalExpenses: 0,
     totalCategories: [],
-    totalsByMonths: []
+    totalsByMonths: [],
+    minYear: 1970,
+    maxYear: 1970
 }
 
 export default function (state = initialState, action) {
@@ -19,6 +21,13 @@ export default function (state = initialState, action) {
                     totalExpenses: payload.totalExpenses*1,
                     totalCategories: payload.totalCategories,
                     totalsByMonths: payload.totalsByMonths
+                }
+
+            case 'FETCH_BASICS_SUCCESS':
+                return {
+                    ...state,
+                    minYear: payload.minYear,
+                    maxYear: payload.maxYear
                 }
         }
     }

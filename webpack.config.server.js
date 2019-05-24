@@ -42,8 +42,9 @@ module.exports = function (env) {
 
     if (PROD) {
         plugins.push(new UglifyJsPlugin({
-            mangle: true,
-            comments: false
+            //mangle: true,
+            //comments: false
+            // todo: deal with it!
         }))
     }
 

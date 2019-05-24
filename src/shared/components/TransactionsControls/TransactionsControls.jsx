@@ -26,21 +26,22 @@ const months = [
     'декабрь',
 ]
 
-const years = [
-    2017,
-    2018
-]
-
 export default class TransactionsControls extends Component {
 
     render() {
 
         //const {currentMonth, currentYear} = this.state
 
-        const {dateFrom} = this.props
+        const {dateFrom, minYear} = this.props
         const momentFrom = moment(dateFrom)
         const currentMonth = momentFrom.month()
         const currentYear = momentFrom.year()
+
+        const maxYear = moment().year()
+        const years = []
+        for(let y = maxYear; y >= minYear; y--){
+            years.push(y)
+        }
 
         return <Navbar inverse className="narrow">
             <Nav>

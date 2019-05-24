@@ -62,4 +62,8 @@ export default function setApiListeners(app) {
     app.get('/api/stats',
         async(req, res) => await authorized(req, res) && res.json(await api.getTotalStats())
     )
+
+    app.get('/api/basic',
+        async (req, res) => await authorized(req, res) && res.json(await api.getBasicData())
+    )
 }

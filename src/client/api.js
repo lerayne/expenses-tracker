@@ -12,7 +12,8 @@ const api = {
     getSummary: (dateFrom, dateTo) => httpGet('/api/summary', {dateFrom, dateTo}),
     getCategories: () => httpGet('/api/categories'),
     createCategory: category => httpPost('/api/category', category),
-    getTotalStats: () => httpGet('/api/stats')
+    getTotalStats: () => httpGet('/api/stats'),
+    getBasicData: () => httpGet('/api/basic')
 }
 
 export default api

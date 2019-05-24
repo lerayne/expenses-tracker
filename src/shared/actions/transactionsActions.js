@@ -29,6 +29,13 @@ export function transactionsPageInit(location){
     }
 }
 
+export function fetchBasics(){
+    return {
+        type:"FETCH_BASICS",
+        promise: api.getBasicData()
+    }
+}
+
 /**
  * Collects all filters data from state and reloads all data for the TransactionsPage
  *
@@ -41,7 +48,8 @@ export function transactionsPageLoadAll(){
         const promises = [
             dispatch(fetchTransactions(dateFrom, dateTo)),
             dispatch(fetchSummary(dateFrom, dateTo)),
-            dispatch(fetchCategories())
+            dispatch(fetchCategories()),
+            dispatch(fetchBasics())
         ]
 
         return Promise.all(promises)

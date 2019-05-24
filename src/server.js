@@ -21,7 +21,18 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(cookieParser())
 
 // раздаем статику
-app.use('/public', express.static('public'))
+app.use('/public', express.static('public', {
+    setHeaders: res => {
+        res.set("Access-Control-Allow-Origin", "*")
+    }
+}))
+
+// раздаем статику
+app.use('/superpublic', express.static('superpublic', {
+    setHeaders: res => {
+        res.set("Access-Control-Allow-Origin", "*")
+    }
+}))
 
 // post login
 app.post('/login', login)
@@ -37,6 +48,8 @@ setApiListeners(app)
 
 // коллбек на запрос к серверу (doesn't start width "/api/")
 app.get(/^(?!\/api\/).*$/, createIsomorphicPage)
+
+console.log('process.env.LISTEN', process.env.LISTEN)
 
 const PORT = process.env.LISTEN || 3001
 

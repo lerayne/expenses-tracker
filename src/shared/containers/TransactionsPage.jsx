@@ -50,6 +50,7 @@ class TransactionsPage extends Component {
             expectedRemains,
             dateFrom,
             dateTo,
+            minYear,
 
             categories,
 
@@ -70,7 +71,8 @@ class TransactionsPage extends Component {
             <TransactionsControls {...{
                 dateFrom,
                 dateTo,
-                setDate: (from, to) => dispatch(setDateOffsetsUpdate(from, to))
+                setDate: (from, to) => dispatch(setDateOffsetsUpdate(from, to)),
+                minYear
             }} />
 
             <TransactionsSummary {...{
@@ -119,5 +121,7 @@ export default TransactionsPage = connect(state => ({
     dateFrom: state.transactions.dateFrom,
     dateTo: state.transactions.dateTo,
 
-    categories: state.categories.list
+    categories: state.categories.list,
+
+    minYear: state.stats.minYear
 }))(TransactionsPage)

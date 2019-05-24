@@ -11,6 +11,7 @@ import createCategory from './createCategory'
 import editTransaction from './editTransaction'
 import getUserAuth from './getUserAuth'
 import getTotalStats from './getTotalStats'
+import getBasicData from './getBasicData'
 
 export default {
     getTransactions,
@@ -21,5 +22,6 @@ export default {
     createCategory,
     editTransaction,
     getUserAuth,
-    getTotalStats
+    getTotalStats,
+    getBasicData
 }
