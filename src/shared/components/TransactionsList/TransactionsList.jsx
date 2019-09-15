@@ -40,11 +40,11 @@ export default function TransactionsList(props) {
                 const categoryName = categoryIndex > -1 ? categories[categoryIndex].name : ''
 
                 return <tr key={ta.id}>
-                    <td><ShortDate momentDate={ta.official_date}/></td>
-                    <td>{ta.name}</td>
-                    <td>{categoryName}</td>
-                    <td></td>
-                    <td></td>
+                    <td className="ta-date"><ShortDate momentDate={ta.official_date}/></td>
+                    <td className="ta-description">{ta.name}</td>
+                    <td className="ta-category">{categoryName}</td>
+                    <td className="ta-subcategory"></td>
+                    <td className="ta-beneficiars"></td>
 
                     <td
                         className={cn('ta-value', {
@@ -56,7 +56,7 @@ export default function TransactionsList(props) {
                         {ta.value > 0 && '+'}{ta.value} грн
                     </td>
 
-                    <td style={{textAlign: 'right'}}>
+                    <td className="ta-buttons" style={{textAlign: 'right'}}>
                         <ButtonGroup bsSize="xsmall">
                             <Button onClick={() => editTransaction(ta.id)}>Изменить</Button>
                             <Button onClick={() => deleteTransaction(ta.id)}>Удалить</Button>

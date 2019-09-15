@@ -40,6 +40,7 @@ export default class TransactionInputPanel extends Component {
         }
     }
 
+    //todo: remove ReceiveProps
     componentWillReceiveProps(newProps) {
         if (newProps.transaction !== this.props.transaction) {
 
@@ -113,14 +114,14 @@ export default class TransactionInputPanel extends Component {
                      <option>3</option>
                      </FormControl>*/}
 
-                    <span className="beneficiars">
+                    {/*<span className="beneficiars">
                         <InputGroup>
                             <FormControl type="text" placeholder="Бенефициары" disabled={true}/>
                             <InputGroup.Button>
                                 <Button>+</Button>
                             </InputGroup.Button>
                         </InputGroup>
-                    </span>
+                    </span>*/}
 
                     <span className="value">
                         <InputGroup>
@@ -300,7 +301,7 @@ export default class TransactionInputPanel extends Component {
     }
 
     handleType(e) {
-        if (e.keyCode == 13 && this.canSubmit()) {
+        if (e.keyCode === 13 && this.canSubmit()) {
             this.submit()
         }
     }

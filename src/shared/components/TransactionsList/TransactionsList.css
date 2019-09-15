@@ -3,8 +3,52 @@
 }
 
 .TransactionsList .ta-value {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .TransactionsList .income {
+}
+
+@media screen and (max-width: 40rem) {
+    .TransactionsList thead {
+        display: none;
+    }
+
+    .TransactionsList tbody tr {
+        display: block;
+        position: relative;
+    }
+
+    .TransactionsList tbody td {
+        display: block;
+        white-space: normal !important;
+    }
+
+    .TransactionsList .ta-value {
+        position: absolute;
+        bottom: 6px;
+        left: 0;
+        font-size: 20px;
+    }
+
+    .TransactionsList .ta-category {
+        position: absolute;
+        right: 0;
+        /*top: calc(1em + 15px); /*1 line + cell paddings*!*/
+        top: 0;
+    }
+
+    .TransactionsList .ta-description {
+        font-size: 19px;
+    }
+
+    .TransactionsList .ta-subcategory,
+    .TransactionsList .ta-beneficiars {
+        display: none;
+    }
+
+    .TransactionsList .ta-buttons .btn {
+        font-size: 17px;
+        line-height: 2em;
+    }
 }
