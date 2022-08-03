@@ -33,7 +33,7 @@
     "material-design-icons-iconfont": "3.0.3",
     "moment": "2.21.0",
     "ms": "1.0.0",
-    "mysql": "2.12.0",
+    "mysql": "2.14.0",
     "prop-types": "15.6.0",
     "react": "15.6.2",
     "react-bootstrap": "0.30.7",
